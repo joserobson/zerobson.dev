@@ -1,12 +1,15 @@
 import { Github, Linkedin, Mail } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 export default function Footer() {
+  const t = useTranslations('footer')
+
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contato</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('contact')}</h3>
             <div className="space-y-2">
               <a
                 href="mailto:seu.email@exemplo.com"
@@ -37,7 +40,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">Tecnologias</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('technologies')}</h3>
             <div className="text-gray-300 space-y-1">
               <p>Angular • TypeScript</p>
               <p>.NET • C#</p>
@@ -47,18 +50,14 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">Sobre</h3>
-            <p className="text-gray-300 text-sm leading-relaxed">
-              Desenvolvedor Full Stack apaixonado por criar soluções escaláveis
-              e eficientes. Sempre em busca de aprender novas tecnologias e
-              compartilhar conhecimento.
-            </p>
+            <h3 className="text-lg font-semibold mb-4">{t('about')}</h3>
+            <p className="text-gray-300 text-sm leading-relaxed">{t('aboutText')}</p>
           </div>
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400 text-sm">
-            © {new Date().getFullYear()} Seu Nome. Todos os direitos reservados.
+            © {new Date().getFullYear()} Your Name. {t('rights')}
           </p>
         </div>
       </div>

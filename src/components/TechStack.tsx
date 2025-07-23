@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl'
+
 interface TechItem {
   name: string
   category: string
@@ -34,6 +36,7 @@ const getLevelColor = (level: string) => {
 }
 
 export default function TechStack() {
+  const t = useTranslations('home')
   const categories = Array.from(new Set(techStack.map(tech => tech.category)))
 
   return (
@@ -41,11 +44,10 @@ export default function TechStack() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Stack Tecnológica
+            {t('techStackTitle')}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Tecnologias e ferramentas que utilizo no desenvolvimento de soluções
-            robustas e escaláveis
+            {t('techStackSubtitle')}
           </p>
         </div>
 
