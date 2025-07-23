@@ -1,0 +1,349 @@
+---
+title: "Otimização de Performance em Aplicações Angular: Técnicas Avançadas"
+date: "2024-01-05"
+excerpt: "Descubra técnicas avançadas para otimizar a performance de suas aplicações Angular, desde lazy loading até estratégias de detecção de mudanças."
+tags: ["Angular", "Performance", "Otimização", "Web Vitals"]
+---
+
+# Otimização de Performance em Aplicações Angular: Técnicas Avançadas
+
+A performance é crucial para o sucesso de qualquer aplicação web. Neste artigo, vamos explorar técnicas avançadas para otimizar aplicações Angular e garantir uma experiência de usuário excepcional.
+
+## 1. Lazy Loading e Code Splitting
+
+O lazy loading é fundamental para reduzir o bundle inicial:
+
+```typescript
+// app-routing.module.ts
+const routes: Routes = [
+  {
+    path: 'products',
+    loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
+  },
+  {
+    path: 'orders',
+    loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    canLoad: [AdminGuard] // Só carrega se autorizado
+  }
+];
+```
+
+### Preloading Strategies
+
+Configure estratégias de preloading inteligentes:
+
+```typescript
+@NgModule({
+  imports: [RouterModule.forRoot(routes, {
+    preloadingStrategy: PreloadAllModules, // ou CustomPreloadingStrategy
+    enableTracing: false // apenas em desenvolvimento
+  })],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {}
+
+// Estratégia customizada
+@Injectable()
+export class CustomPreloadingStrategy implements PreloadingStrategy {
+  preload(route: Route, load: () => Observable<any>): Observable<any> {
+    // Só precarrega rotas marcadas
+    return route.data && route.data['preload'] ? load() : of(null);
+  }
+}
+```
+
+## 2. OnPush Change Detection Strategy
+
+Otimize a detecção de mudanças usando OnPush:
+
+```typescript
+@Component({
+  selector: 'app-product-list',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <div *ngFor="let product of products; trackBy: trackByProductId">
+      <app-product-card 
+        [product]="product"
+        (productSelected)="onProductSelected($event)">
+      </app-product-card>
+    </div>
+  `
+})
+export class ProductListComponent {
+  @Input() products: Product[] = [];
+  @Output() productSelected = new EventEmitter<Product>();
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  trackByProductId(index: number, product: Product): number {
+    return product.id;
+  }
+
+  onProductSelected(product: Product): void {
+    this.productSelected.emit(product);
+    // Força detecção de mudança se necessário
+    this.cdr.markForCheck();
+  }
+}
+```
+
+## 3. Virtual Scrolling para Listas Grandes
+
+Use CDK Virtual Scrolling para listas com muitos itens:
+
+```typescript
+@Component({
+  selector: 'app-virtual-list',
+  template: `
+    <cdk-virtual-scroll-viewport 
+      itemSize="60" 
+      class="viewport"
+      [style.height.px]="400">
+      
+      <div *cdkVirtualFor="let item of items; trackBy: trackByFn" 
+           class="item">
+        {{ item.name }}
+      </div>
+    </cdk-virtual-scroll-viewport>
+  `,
+  styles: [`
+    .viewport {
+      border: 1px solid #ccc;
+    }
+    .item {
+      height: 60px;
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+  `]
+})
+export class VirtualListComponent {
+  items = Array.from({length: 10000}, (_, i) => ({
+    id: i,
+    name: `Item ${i}`
+  }));
+
+  trackByFn(index: number, item: any): number {
+    return item.id;
+  }
+}
+```
+
+## 4. Otimização de Imagens
+
+Implemente lazy loading e otimização de imagens:
+
+```typescript
+@Component({
+  selector: 'app-optimized-image',
+  template: `
+    <img 
+      [src]="imageSrc"
+      [alt]="alt"
+      [loading]="'lazy'"
+      [style.width.px]="width"
+      [style.height.px]="height"
+      (load)="onImageLoad()"
+      (error)="onImageError()">
+  `
+})
+export class OptimizedImageComponent {
+  @Input() src!: string;
+  @Input() alt!: string;
+  @Input() width!: number;
+  @Input() height!: number;
+
+  get imageSrc(): string {
+    // Gera URLs otimizadas baseadas no tamanho
+    return `${this.src}?w=${this.width}&h=${this.height}&q=80`;
+  }
+
+  onImageLoad(): void {
+    // Implementar fade-in ou outras animações
+  }
+
+  onImageError(): void {
+    // Fallback para imagem padrão
+  }
+}
+```
+
+## 5. Service Workers e Caching
+
+Configure service workers para cache inteligente:
+
+```typescript
+// app.module.ts
+@NgModule({
+  imports: [
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      registrationStrategy: 'registerWhenStable:30000'
+    })
+  ]
+})
+export class AppModule {}
+
+// Configuração no ngsw-config.json
+{
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": ["/favicon.ico", "/index.html", "/*.css", "/*.js"]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": ["/assets/**", "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-cache",
+      "urls": ["/api/**"],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 100,
+        "maxAge": "1h"
+      }
+    }
+  ]
+}
+```
+
+## 6. Bundle Analysis e Tree Shaking
+
+Analise e otimize seus bundles:
+
+```bash
+# Gerar relatório de bundle
+ng build --stats-json
+npx webpack-bundle-analyzer dist/stats.json
+
+# Verificar dependências não utilizadas
+npx depcheck
+
+# Analisar tamanho dos pacotes
+npm install -g bundlephobia
+bundlephobia lodash
+```
+
+### Otimizações no angular.json:
+
+```json
+{
+  "build": {
+    "builder": "@angular-devkit/build-angular:browser",
+    "options": {
+      "optimization": true,
+      "buildOptimizer": true,
+      "aot": true,
+      "extractLicenses": true,
+      "sourceMap": false,
+      "namedChunks": false,
+      "vendorChunk": true,
+      "commonChunk": true
+    }
+  }
+}
+```
+
+## 7. Memoização e Pure Pipes
+
+Use pipes puros para cálculos custosos:
+
+```typescript
+@Pipe({
+  name: 'expensiveCalculation',
+  pure: true // Só recalcula quando inputs mudam
+})
+export class ExpensiveCalculationPipe implements PipeTransform {
+  private cache = new Map<string, any>();
+
+  transform(value: any, ...args: any[]): any {
+    const key = JSON.stringify([value, ...args]);
+    
+    if (this.cache.has(key)) {
+      return this.cache.get(key);
+    }
+
+    const result = this.performExpensiveCalculation(value, ...args);
+    this.cache.set(key, result);
+    
+    return result;
+  }
+
+  private performExpensiveCalculation(value: any, ...args: any[]): any {
+    // Lógica custosa aqui
+    return value;
+  }
+}
+```
+
+## 8. Web Workers para Processamento Pesado
+
+Mova processamento pesado para Web Workers:
+
+```typescript
+// calculation.worker.ts
+/// <reference lib="webworker" />
+
+addEventListener('message', ({ data }) => {
+  const result = performHeavyCalculation(data);
+  postMessage(result);
+});
+
+function performHeavyCalculation(data: any): any {
+  // Processamento pesado
+  return data;
+}
+
+// component.ts
+@Component({
+  selector: 'app-heavy-calculation',
+  template: `
+    <button (click)="startCalculation()">Iniciar Cálculo</button>
+    <div *ngIf="result">Resultado: {{ result }}</div>
+  `
+})
+export class HeavyCalculationComponent {
+  result: any;
+
+  startCalculation(): void {
+    if (typeof Worker !== 'undefined') {
+      const worker = new Worker(new URL('./calculation.worker', import.meta.url));
+      
+      worker.postMessage({ data: 'large dataset' });
+      
+      worker.onmessage = ({ data }) => {
+        this.result = data;
+        worker.terminate();
+      };
+    }
+  }
+}
+```
+
+## Conclusão
+
+A otimização de performance é um processo contínuo que envolve:
+
+1. **Lazy Loading** para reduzir bundle inicial
+2. **OnPush Strategy** para otimizar detecção de mudanças
+3. **Virtual Scrolling** para listas grandes
+4. **Service Workers** para cache inteligente
+5. **Bundle Analysis** para identificar oportunidades
+6. **Web Workers** para processamento pesado
+
+Monitore sempre as métricas de performance e use ferramentas como Lighthouse para validar suas otimizações.

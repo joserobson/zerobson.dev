@@ -1,0 +1,275 @@
+---
+title: "Padrões Avançados com RxJS no Angular: Dominando Streams Reativas"
+date: "2024-01-10"
+excerpt: "Explore padrões avançados do RxJS para criar aplicações Angular mais reativas, performáticas e maintíveis. Aprenda técnicas que vão elevar seu código ao próximo nível."
+tags: ["Angular", "RxJS", "Reactive Programming", "TypeScript"]
+---
+
+# Padrões Avançados com RxJS no Angular: Dominando Streams Reativas
+
+O RxJS é uma das bibliotecas mais poderosas do ecossistema Angular, mas também uma das mais desafiadoras de dominar. Neste artigo, vamos explorar padrões avançados que vão transformar a forma como você trabalha com streams reativas.
+
+## 1. Padrão de Facade Service
+
+O padrão Facade simplifica a interação com múltiplos serviços através de uma interface unificada:
+
+```typescript
+@Injectable({
+  providedIn: 'root'
+})
+export class UserFacadeService {
+  private userSubject = new BehaviorSubject<User | null>(null);
+  private loadingSubject = new BehaviorSubject<boolean>(false);
+  private errorSubject = new BehaviorSubject<string | null>(null);
+
+  // Streams públicos (somente leitura)
+  user$ = this.userSubject.asObservable();
+  loading$ = this.loadingSubject.asObservable();
+  error$ = this.errorSubject.asObservable();
+
+  constructor(
+    private userService: UserService,
+    private notificationService: NotificationService
+  ) {}
+
+  loadUser(id: number): void {
+    this.loadingSubject.next(true);
+    this.errorSubject.next(null);
+
+    this.userService.getUser(id).pipe(
+      finalize(() => this.loadingSubject.next(false))
+    ).subscribe({
+      next: user => this.userSubject.next(user),
+      error: error => this.errorSubject.next(error.message)
+    });
+  }
+
+  updateUser(user: User): void {
+    this.userService.updateUser(user).subscribe({
+      next: updatedUser => {
+        this.userSubject.next(updatedUser);
+        this.notificationService.showSuccess('Usuário atualizado!');
+      },
+      error: error => this.errorSubject.next(error.message)
+    });
+  }
+}
+```
+
+## 2. Combinando Streams com combineLatest
+
+Para criar views reativas que dependem de múltiplas fontes de dados:
+
+```typescript
+@Component({
+  selector: 'app-dashboard',
+  template: `
+    <div *ngIf="viewModel$ | async as vm">
+      <div *ngIf="vm.loading">Carregando...</div>
+      <div *ngIf="vm.error">{{ vm.error }}</div>
+      
+      <div *ngIf="!vm.loading && !vm.error">
+        <h2>Bem-vindo, {{ vm.user.name }}!</h2>
+        <p>Você tem {{ vm.notifications.length }} notificações</p>
+        <p>Configuração: {{ vm.settings.theme }}</p>
+      </div>
+    </div>
+  `
+})
+export class DashboardComponent {
+  viewModel$ = combineLatest([
+    this.userFacade.user$,
+    this.userFacade.loading$,
+    this.userFacade.error$,
+    this.notificationService.notifications$,
+    this.settingsService.settings$
+  ]).pipe(
+    map(([user, loading, error, notifications, settings]) => ({
+      user,
+      loading,
+      error,
+      notifications,
+      settings
+    }))
+  );
+
+  constructor(
+    private userFacade: UserFacadeService,
+    private notificationService: NotificationService,
+    private settingsService: SettingsService
+  ) {}
+}
+```
+
+## 3. Padrão de Cache com shareReplay
+
+Evite requisições desnecessárias implementando cache reativo:
+
+```typescript
+@Injectable({
+  providedIn: 'root'
+})
+export class ProductService {
+  private cache = new Map<string, Observable<any>>();
+
+  getProducts(): Observable<Product[]> {
+    const cacheKey = 'products';
+    
+    if (!this.cache.has(cacheKey)) {
+      const products$ = this.http.get<Product[]>('/api/products').pipe(
+        shareReplay({ bufferSize: 1, refCount: false }),
+        catchError(error => {
+          this.cache.delete(cacheKey); // Remove do cache em caso de erro
+          return throwError(error);
+        })
+      );
+      
+      this.cache.set(cacheKey, products$);
+    }
+    
+    return this.cache.get(cacheKey)!;
+  }
+
+  invalidateCache(): void {
+    this.cache.clear();
+  }
+}
+```
+
+## 4. Debounce e DistinctUntilChanged para Busca
+
+Otimize buscas em tempo real:
+
+```typescript
+@Component({
+  selector: 'app-search',
+  template: `
+    <input 
+      [formControl]="searchControl" 
+      placeholder="Buscar produtos..."
+    >
+    
+    <div *ngIf="loading$ | async">Buscando...</div>
+    
+    <div *ngFor="let product of results$ | async">
+      {{ product.name }}
+    </div>
+  `
+})
+export class SearchComponent implements OnInit {
+  searchControl = new FormControl('');
+  loading$ = new BehaviorSubject<boolean>(false);
+  
+  results$ = this.searchControl.valueChanges.pipe(
+    debounceTime(300), // Aguarda 300ms após parar de digitar
+    distinctUntilChanged(), // Só emite se o valor mudou
+    tap(() => this.loading$.next(true)),
+    switchMap(query => 
+      query ? 
+        this.productService.search(query).pipe(
+          finalize(() => this.loading$.next(false))
+        ) : 
+        of([])
+    )
+  );
+
+  constructor(private productService: ProductService) {}
+
+  ngOnInit(): void {
+    this.results$.subscribe(); // Inicia o stream
+  }
+}
+```
+
+## 5. Tratamento de Erros com Retry
+
+Implemente retry inteligente para requisições:
+
+```typescript
+@Injectable({
+  providedIn: 'root'
+})
+export class ApiService {
+  private readonly MAX_RETRIES = 3;
+  private readonly RETRY_DELAY = 1000;
+
+  getData<T>(url: string): Observable<T> {
+    return this.http.get<T>(url).pipe(
+      retryWhen(errors =>
+        errors.pipe(
+          scan((retryCount, error) => {
+            if (retryCount >= this.MAX_RETRIES) {
+              throw error;
+            }
+            
+            // Só faz retry para erros de rede
+            if (error.status >= 500 || error.status === 0) {
+              return retryCount + 1;
+            }
+            
+            throw error;
+          }, 0),
+          delay(this.RETRY_DELAY)
+        )
+      ),
+      catchError(error => {
+        console.error('Erro após tentativas:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+}
+```
+
+## 6. Padrão de Loading States
+
+Gerencie estados de loading de forma elegante:
+
+```typescript
+interface LoadingState<T> {
+  loading: boolean;
+  data: T | null;
+  error: string | null;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class StateService {
+  createLoadingState<T>(): BehaviorSubject<LoadingState<T>> {
+    return new BehaviorSubject<LoadingState<T>>({
+      loading: false,
+      data: null,
+      error: null
+    });
+  }
+
+  handleRequest<T>(
+    state: BehaviorSubject<LoadingState<T>>,
+    request: Observable<T>
+  ): Observable<T> {
+    state.next({ ...state.value, loading: true, error: null });
+    
+    return request.pipe(
+      tap(data => state.next({ loading: false, data, error: null })),
+      catchError(error => {
+        state.next({ loading: false, data: null, error: error.message });
+        return throwError(() => error);
+      })
+    );
+  }
+}
+```
+
+## Conclusão
+
+Estes padrões avançados do RxJS vão ajudar você a criar aplicações Angular mais robustas e maintíveis. Lembre-se:
+
+- Use **Facade Services** para simplificar a complexidade
+- Combine streams com **combineLatest** para views reativas
+- Implemente **cache** para otimizar performance
+- Use **debounce** e **distinctUntilChanged** em buscas
+- Trate erros de forma inteligente com **retry**
+- Gerencie estados de loading de forma consistente
+
+A chave é praticar esses padrões em projetos reais e adaptá-los às suas necessidades específicas.

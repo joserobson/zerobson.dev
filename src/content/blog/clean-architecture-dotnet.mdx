@@ -1,0 +1,156 @@
+---
+title: "Implementando Clean Architecture em .NET: Guia Prático"
+date: "2024-01-15"
+excerpt: "Aprenda como estruturar suas aplicações .NET seguindo os princípios da Clean Architecture para criar sistemas mais testáveis, flexíveis e maintíveis."
+tags: [".NET", "Clean Architecture", "SOLID", "Boas Práticas"]
+---
+
+# Implementando Clean Architecture em .NET: Guia Prático
+
+A Clean Architecture, proposta por Robert C. Martin (Uncle Bob), é uma abordagem arquitetural que visa criar sistemas mais testáveis, flexíveis e independentes de frameworks externos. Neste artigo, vamos explorar como implementar esses conceitos em aplicações .NET.
+
+## O que é Clean Architecture?
+
+A Clean Architecture organiza o código em camadas concêntricas, onde as dependências sempre apontam para dentro, em direção às regras de negócio. Isso garante que o núcleo da aplicação seja independente de detalhes de implementação como frameworks, bancos de dados ou interfaces de usuário.
+
+### Principais Benefícios
+
+- **Testabilidade**: Facilita a criação de testes unitários
+- **Flexibilidade**: Permite mudanças de tecnologia sem impactar o negócio
+- **Manutenibilidade**: Código mais organizado e fácil de entender
+- **Independência**: Desacoplamento entre camadas
+
+## Estrutura das Camadas
+
+### 1. Domain (Núcleo)
+
+A camada de domínio contém as entidades e regras de negócio fundamentais:
+
+```csharp
+public class Product
+{
+    public int Id { get; private set; }
+    public string Name { get; private set; }
+    public decimal Price { get; private set; }
+    public bool IsActive { get; private set; }
+
+    public Product(string name, decimal price)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("Nome é obrigatório");
+        
+        if (price <= 0)
+            throw new ArgumentException("Preço deve ser maior que zero");
+
+        Name = name;
+        Price = price;
+        IsActive = true;
+    }
+
+    public void Deactivate()
+    {
+        IsActive = false;
+    }
+}
+```
+
+### 2. Application (Casos de Uso)
+
+Esta camada orquestra as regras de negócio e define os contratos:
+
+```csharp
+public interface IProductRepository
+{
+    Task<Product> GetByIdAsync(int id);
+    Task<IEnumerable<Product>> GetAllAsync();
+    Task AddAsync(Product product);
+    Task UpdateAsync(Product product);
+}
+
+public class CreateProductUseCase
+{
+    private readonly IProductRepository _repository;
+
+    public CreateProductUseCase(IProductRepository repository)
+    {
+        _repository = repository;
+    }
+
+    public async Task<int> ExecuteAsync(string name, decimal price)
+    {
+        var product = new Product(name, price);
+        await _repository.AddAsync(product);
+        return product.Id;
+    }
+}
+```
+
+### 3. Infrastructure (Detalhes)
+
+Implementa os contratos definidos na camada de aplicação:
+
+```csharp
+public class ProductRepository : IProductRepository
+{
+    private readonly ApplicationDbContext _context;
+
+    public ProductRepository(ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+    public async Task<Product> GetByIdAsync(int id)
+    {
+        return await _context.Products.FindAsync(id);
+    }
+
+    public async Task AddAsync(Product product)
+    {
+        _context.Products.Add(product);
+        await _context.SaveChangesAsync();
+    }
+}
+```
+
+## Configuração da Injeção de Dependência
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    // Infrastructure
+    services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlServer(connectionString));
+    
+    services.AddScoped<IProductRepository, ProductRepository>();
+    
+    // Application
+    services.AddScoped<CreateProductUseCase>();
+}
+```
+
+## Testes Unitários
+
+A Clean Architecture facilita muito a criação de testes:
+
+```csharp
+[Test]
+public async Task CreateProduct_ValidData_ShouldReturnProductId()
+{
+    // Arrange
+    var mockRepository = new Mock<IProductRepository>();
+    var useCase = new CreateProductUseCase(mockRepository.Object);
+
+    // Act
+    var result = await useCase.ExecuteAsync("Produto Teste", 99.99m);
+
+    // Assert
+    Assert.IsTrue(result > 0);
+    mockRepository.Verify(r => r.AddAsync(It.IsAny<Product>()), Times.Once);
+}
+```
+
+## Conclusão
+
+A Clean Architecture oferece uma base sólida para construir aplicações .NET robustas e maintíveis. Embora possa parecer complexa inicialmente, os benefícios a longo prazo compensam o investimento inicial em estruturação.
+
+Lembre-se: a arquitetura deve servir ao seu projeto, não o contrário. Adapte os conceitos às necessidades específicas da sua aplicação.
