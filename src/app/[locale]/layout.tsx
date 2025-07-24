@@ -5,6 +5,7 @@ import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import '../globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -41,16 +42,14 @@ export default async function LocaleLayout({
   const messages = await getMessages()
 
   return (
-    <html lang={locale}>
-      <body className={`${inter.className} min-h-screen flex flex-col`}>
-        <NextIntlClientProvider messages={messages}>
-          <Header />
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <div className={`${inter.className} min-h-screen flex flex-col`}>
+      <NextIntlClientProvider messages={messages}>
+        <Header />
+        <main className="flex-grow">
+          {children}
+        </main>
+        <Footer />
+      </NextIntlClientProvider>
+    </div>
   )
 }
