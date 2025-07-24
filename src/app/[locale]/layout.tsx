@@ -1,27 +1,14 @@
-import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import '../globals.css'
+import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
 const locales = ['en', 'pt']
-
-export const metadata: Metadata = {
-  title: 'Your Name - Full Stack Developer',
-  description: 'Full Stack Developer specialized in Angular and .NET. Check out my portfolio, resume and technical blog.',
-  keywords: 'developer, full stack, angular, .net, typescript, c#',
-  authors: [{ name: 'Your Name' }],
-  openGraph: {
-    title: 'Your Name - Full Stack Developer',
-    description: 'Full Stack Developer specialized in Angular and .NET',
-    type: 'website',
-  },
-}
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
