@@ -4,11 +4,10 @@ import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { locales } from '@/config'
 import '../globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
-
-const locales = ['en', 'pt']
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
