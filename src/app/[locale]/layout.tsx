@@ -4,7 +4,7 @@ import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import './globals.css'
+import '../globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
