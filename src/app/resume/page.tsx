@@ -200,10 +200,36 @@ export default function Resume() {
         {/* Education */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Education</h2>
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900">Technology Education</h3>
-            <p className="text-blue-600 font-medium">15+ Years of Professional Experience</p>
-            <span className="text-gray-500 text-sm">Continuous Learning and Development</span>
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">Master of Business Administration (MBA) in IT Project Management</h3>
+              <p className="text-blue-600 font-medium">Universidade Federal de Juiz de Fora</p>
+              <span className="text-gray-500 text-sm">2013 - 2014</span>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">Bachelor's Degree in Computer Science</h3>
+              <p className="text-blue-600 font-medium">Universidade Presidente Antônio Carlos</p>
+              <span className="text-gray-500 text-sm">2004 - 2007</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Certifications */}
+        <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Certifications</h2>
+          <div className="space-y-3">
+            <div className="flex items-center">
+              <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+              <span className="text-gray-700">MS: Programming in C#</span>
+            </div>
+            <div className="flex items-center">
+              <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+              <span className="text-gray-700">MCPS: Microsoft Certified Professional</span>
+            </div>
+            <div className="flex items-center">
+              <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+              <span className="text-gray-700">Software Architecture Course (.NET)</span>
+            </div>
           </div>
         </div>
 
