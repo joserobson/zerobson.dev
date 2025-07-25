@@ -1,10 +1,10 @@
 // MDX Components with proper styling for MDXRemote
 export const mdxComponents = {
   h1: ({ children }: any) => (
-    <h1 className="text-4xl font-bold text-gray-900 mb-8 leading-tight">{children}</h1>
+    <h1 className="text-2xl font-bold text-gray-900 mb-8 leading-tight">{children}</h1>
   ),
   h2: ({ children }: any) => (
-    <h2 className="text-3xl font-semibold text-gray-800 mb-6 mt-12 leading-tight">{children}</h2>
+    <h2 className="text-2xl font-semibold text-gray-800 mb-6 mt-12 leading-tight">{children}</h2>
   ),
   h3: ({ children }: any) => (
     <h3 className="text-2xl font-medium text-gray-700 mb-4 mt-8 leading-tight">{children}</h3>
