@@ -48,8 +48,8 @@ export default function Home() {
               </h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>I'm a Senior Software Engineer and Technical Lead with over 15 years of experience creating robust and scalable applications. My expertise covers fullstack development with a focus on .NET Core, C#, Angular, and software architecture.</p>
-                <p>I specialize in legacy system modernization, microservices architecture, security, and complex integrations, leading teams from architectural conception to the delivery of innovative products. I have a proven track record of optimizing performance and scalability.</p>
-                <p>Passionate about complex technical challenges and mentoring new talent, I actively contribute to the growth of the developer community and seek challenging opportunities where my skills can drive project innovation and success.</p>
+                <p>I have a solid background in system maintenance, efficiently handling bug fixes, new features, and performance optimizations. I'm passionate about tackling complex technical challenges and mentoring new talent, actively contributing to team growth and seeking opportunities to drive project innovation and success..</p>
+             
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
