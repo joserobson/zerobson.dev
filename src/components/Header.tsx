@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useTranslations, useLocale } from 'next-intl'
-import { usePathname } from 'next/navigation'
+import { usePathname } from 'next-intl/client'
 import { Menu, X, Globe } from 'lucide-react'
 import { useState } from 'react'
 
