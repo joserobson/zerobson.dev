@@ -1,0 +1,200 @@
+import { Download, Mail, Phone, MapPin, Github, Linkedin, ExternalLink } from 'lucide-react'
+
+export default function Resume() {
+  return (
+    <div className="min-h-screen bg-gray-50 py-12">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Your Name</h1>
+              <p className="text-xl text-gray-600">Full Stack Developer</p>
+            </div>
+            <button className="mt-4 md:mt-0 inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+              <Download size={16} className="mr-2" />
+              Download PDF
+            </button>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+            <div className="flex items-center text-gray-600">
+              <Mail size={16} className="mr-2" />
+              your.email@example.com
+            </div>
+            <div className="flex items-center text-gray-600">
+              <Phone size={16} className="mr-2" />
+              +1 (555) 123-4567
+            </div>
+            <div className="flex items-center text-gray-600">
+              <MapPin size={16} className="mr-2" />
+              Your City, Country
+            </div>
+            <div className="flex items-center space-x-4">
+              <a href="https://github.com/yourusername" className="text-gray-600 hover:text-blue-600">
+                <Github size={16} />
+              </a>
+              <a href="https://linkedin.com/in/yourprofile" className="text-gray-600 hover:text-blue-600">
+                <Linkedin size={16} />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Professional Summary */}
+        <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Professional Summary</h2>
+          <p className="text-gray-600 leading-relaxed">
+            Full Stack Developer with over X years of experience in developing scalable web applications using Angular and .NET. 
+            Expert in clean architecture, design patterns and development best practices. Solid experience throughout the software 
+            development cycle, from conception to deployment and maintenance.
+          </p>
+        </div>
+
+        {/* Experience */}
+        <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Professional Experience</h2>
+          
+          <div className="space-y-8">
+            <div>
+              <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Senior Full Stack Developer</h3>
+                  <p className="text-blue-600 font-medium">Company Name</p>
+                </div>
+                <span className="text-gray-500 text-sm">2022 - Present</span>
+              </div>
+              <ul className="text-gray-600 space-y-1 ml-4">
+                <li>• Led development of enterprise applications using Angular 15+ and .NET 6</li>
+                <li>• Implemented clean architecture patterns and SOLID principles</li>
+                <li>• Mentored junior developers and conducted code reviews</li>
+                <li>• Improved application performance by 40% through optimization techniques</li>
+              </ul>
+            </div>
+
+            <div>
+              <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Full Stack Developer</h3>
+                  <p className="text-blue-600 font-medium">Previous Company</p>
+                </div>
+                <span className="text-gray-500 text-sm">2020 - 2022</span>
+              </div>
+              <ul className="text-gray-600 space-y-1 ml-4">
+                <li>• Developed and maintained web applications using Angular and .NET Core</li>
+                <li>• Collaborated with cross-functional teams in agile environment</li>
+                <li>• Implemented RESTful APIs and integrated third-party services</li>
+                <li>• Participated in database design and optimization</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Technical Skills */}
+        <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Technical Skills</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-3">Frontend</h3>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Angular</span>
+                  <span className="text-sm text-green-600 font-medium">Advanced</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">TypeScript</span>
+                  <span className="text-sm text-green-600 font-medium">Advanced</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">RxJS</span>
+                  <span className="text-sm text-green-600 font-medium">Advanced</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">HTML5/CSS3</span>
+                  <span className="text-sm text-green-600 font-medium">Advanced</span>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-3">Backend</h3>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">.NET Core</span>
+                  <span className="text-sm text-green-600 font-medium">Advanced</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">C#</span>
+                  <span className="text-sm text-green-600 font-medium">Advanced</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Entity Framework</span>
+                  <span className="text-sm text-green-600 font-medium">Advanced</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">SQL Server</span>
+                  <span className="text-sm text-green-600 font-medium">Advanced</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6">
+            <h3 className="text-lg font-semibold text-gray-800 mb-3">Other Technologies</h3>
+            <div className="flex flex-wrap gap-2">
+              {['Azure', 'Docker', 'Git', 'PostgreSQL', 'Redis', 'Microservices', 'Clean Architecture', 'SOLID'].map((tech) => (
+                <span key={tech} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Education */}
+        <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Education</h2>
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900">Bachelor's Degree in Computer Science</h3>
+            <p className="text-blue-600 font-medium">University Name</p>
+            <span className="text-gray-500 text-sm">2016 - 2020</span>
+          </div>
+        </div>
+
+        {/* Featured Projects */}
+        <div className="bg-white rounded-lg shadow-sm p-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Featured Projects</h2>
+          
+          <div className="space-y-6">
+            <div className="border-l-4 border-blue-500 pl-4">
+              <div className="flex items-start justify-between">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Business Management System</h3>
+                  <p className="text-gray-600 mt-1">
+                    Complete application for business resource management developed with Angular 15 and .NET 6, 
+                    including sales, inventory and real-time reporting modules.
+                  </p>
+                </div>
+                <ExternalLink size={16} className="text-gray-400 mt-1 ml-2 flex-shrink-0" />
+              </div>
+            </div>
+
+            <div className="border-l-4 border-green-500 pl-4">
+              <div className="flex items-start justify-between">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">E-commerce API</h3>
+                  <p className="text-gray-600 mt-1">
+                    Robust RESTful API for e-commerce platform with JWT authentication, payment integration 
+                    and notification system.
+                  </p>
+                </div>
+                <ExternalLink size={16} className="text-gray-400 mt-1 ml-2 flex-shrink-0" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

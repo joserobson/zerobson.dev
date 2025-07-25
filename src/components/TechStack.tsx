@@ -1,34 +1,32 @@
-import { useTranslations } from 'next-intl'
-
 interface TechItem {
   name: string
   category: string
-  level: 'Avançado' | 'Intermediário' | 'Básico'
+  level: 'Advanced' | 'Intermediate' | 'Basic'
 }
 
 const techStack: TechItem[] = [
-  { name: 'Angular', category: 'Frontend', level: 'Avançado' },
-  { name: 'TypeScript', category: 'Frontend', level: 'Avançado' },
-  { name: 'RxJS', category: 'Frontend', level: 'Avançado' },
-  { name: 'HTML5/CSS3', category: 'Frontend', level: 'Avançado' },
-  { name: 'Tailwind CSS', category: 'Frontend', level: 'Intermediário' },
-  { name: '.NET Core', category: 'Backend', level: 'Avançado' },
-  { name: 'C#', category: 'Backend', level: 'Avançado' },
-  { name: 'Entity Framework', category: 'Backend', level: 'Avançado' },
-  { name: 'SQL Server', category: 'Database', level: 'Avançado' },
-  { name: 'PostgreSQL', category: 'Database', level: 'Intermediário' },
-  { name: 'Azure', category: 'Cloud', level: 'Intermediário' },
-  { name: 'Docker', category: 'DevOps', level: 'Intermediário' },
-  { name: 'Git', category: 'Tools', level: 'Avançado' },
+  { name: 'Angular', category: 'Frontend', level: 'Advanced' },
+  { name: 'TypeScript', category: 'Frontend', level: 'Advanced' },
+  { name: 'RxJS', category: 'Frontend', level: 'Advanced' },
+  { name: 'HTML5/CSS3', category: 'Frontend', level: 'Advanced' },
+  { name: 'Tailwind CSS', category: 'Frontend', level: 'Intermediate' },
+  { name: '.NET Core', category: 'Backend', level: 'Advanced' },
+  { name: 'C#', category: 'Backend', level: 'Advanced' },
+  { name: 'Entity Framework', category: 'Backend', level: 'Advanced' },
+  { name: 'SQL Server', category: 'Database', level: 'Advanced' },
+  { name: 'PostgreSQL', category: 'Database', level: 'Intermediate' },
+  { name: 'Azure', category: 'Cloud', level: 'Intermediate' },
+  { name: 'Docker', category: 'DevOps', level: 'Intermediate' },
+  { name: 'Git', category: 'Tools', level: 'Advanced' },
 ]
 
 const getLevelColor = (level: string) => {
   switch (level) {
-    case 'Avançado':
+    case 'Advanced':
       return 'bg-green-100 text-green-800'
-    case 'Intermediário':
+    case 'Intermediate':
       return 'bg-yellow-100 text-yellow-800'
-    case 'Básico':
+    case 'Basic':
       return 'bg-gray-100 text-gray-800'
     default:
       return 'bg-gray-100 text-gray-800'
@@ -36,7 +34,6 @@ const getLevelColor = (level: string) => {
 }
 
 export default function TechStack() {
-  const t = useTranslations('home')
   const categories = Array.from(new Set(techStack.map(tech => tech.category)))
 
   return (
@@ -44,10 +41,10 @@ export default function TechStack() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            {t('techStackTitle')}
+            Tech Stack
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            {t('techStackSubtitle')}
+            Technologies and tools I use to develop robust and scalable solutions
           </p>
         </div>
 
