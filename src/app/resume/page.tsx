@@ -34,7 +34,7 @@ export default function Resume() {
               <a href="https://github.com/joserobson" className="text-gray-600 hover:text-blue-600">
                 <Github size={16} />
               </a>
-              <a href="https://linkedin.com/in/joserobsonassis" className="text-gray-600 hover:text-blue-600">
+              <a href="https://www.linkedin.com/in/jose-robson-assis" className="text-gray-600 hover:text-blue-600">
                 <Linkedin size={16} />
               </a>
             </div>

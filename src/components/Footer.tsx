@@ -16,7 +16,7 @@ export default function Footer() {
                 robsbq@gmail.com
               </a>
               <a
-                href="https://linkedin.com/in/joserobsonassis"
+                href="https://www.linkedin.com/in/jose-robson-assis"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center text-gray-300 hover:text-white transition-colors"
