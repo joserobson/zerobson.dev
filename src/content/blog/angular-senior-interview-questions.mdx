@@ -1,0 +1,97 @@
+---
+title: "Optimizing Angular Performance with Change Detection Strategy and OnPush"
+date: "2024-01-10"
+excerpt: "Learn how Angular detects changes and how to leverage the OnPush strategy to improve your application's performance. Understand common pitfalls and master this essential optimization technique."
+tags: ["Angular", "Change Detection", "OnPush", "Performance", "TypeScript"]
+---
+
+# Senior Angular Developer Interview Questions & Answers
+
+## 1. Explain the concept of **Change Detection Strategy** in Angular.  
+**When would you use `OnPush`, and what are the common pitfalls to avoid when implementing it?**
+
+### ✅ Answer:
+
+**Change Detection Strategy** in Angular dictates *when* and *how* Angular checks for changes in the application state to update the DOM.  
+There are two primary strategies:
+
+- **Default (`CheckAlways`)**  
+  Angular checks **every component** in the component tree from top to bottom whenever any asynchronous event occurs (e.g., user input, HTTP responses, `setTimeout`, Promises).  
+  🔁 It's thorough but **can be inefficient** in large apps.
+
+- **`OnPush`**  
+  Angular only checks a component and its subtree when:
+
+  1. One of its `@Input()` properties changes **by reference** (i.e., a new object or array is assigned, not mutated).
+  2. An **event is emitted** from the component (e.g., a click).
+  3. An **observable** (with the `async` pipe) emits a new value in the template.
+  4. You manually trigger detection via `ChangeDetectorRef.detectChanges()` or `markForCheck()`.
+
+---
+
+### 🛠️ When to Use `OnPush`
+
+Use `OnPush` for **performance optimization**, especially for:
+
+- Feature components with `@Input()` data.
+- Large/complex UIs.
+- Encouraging **immutability** and cleaner state management.
+
+It minimizes unnecessary checks, improves performance, and makes debugging more predictable.
+
+---
+
+### ⚠️ Common Pitfalls
+
+#### 1. **Mutating Input Objects/Arrays**
+
+> Example of what **not** to do:
+```ts
+this.items.push(newItem);  // Mutation – won't trigger change detection
+this.data.name = 'Updated';  // Mutation – reference is the same
+```
+
+✅ **Solution**:
+Use new references:
+
+```ts
+this.items = [...this.items, newItem];  // New array reference
+this.data = { ...this.data, name: 'Updated' };  // New object
+```
+
+---
+
+#### 2. **External Side Effects (e.g., from Services)**
+
+If a service updates data used by a component with `OnPush` and **doesn't trigger change detection**, the component won't update.
+
+✅ **Solution**:
+
+- Use the `async` pipe with `Observables` to auto-trigger updates.
+- Or call `markForCheck()` after external changes.
+
+---
+
+#### 3. **Mixing Default and OnPush Unintentionally**
+
+Mixing strategies can lead to **unexpected behavior**.  
+An `OnPush` parent won’t update children unless its own inputs change.
+
+✅ **Solution**: Understand and document component boundaries and change detection flows.
+
+---
+
+#### 4. **Harder Debugging**
+
+With `OnPush`, it’s common to wonder *“Why isn’t this updating?”*. It’s usually due to:
+
+- Input mutation
+- No new observable emission
+- No manual change detection
+
+✅ **Tip**: Use **Angular DevTools** to track change detection runs.
+
+---
+
+> 🔍 Summary:  
+`OnPush` is a powerful strategy for Angular performance, but it requires discipline in managing data immutably and understanding the detection flow.
