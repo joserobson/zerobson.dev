@@ -61,33 +61,75 @@ export default function Resume() {
             <div>
               <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Senior Software Engineer & Technical Lead</h3>
-                  <p className="text-blue-600 font-medium">Current Position</p>
+                  <h3 className="text-lg font-semibold text-gray-900">Senior Full Stack Software Engineer | Technical Lead | Software Architect</h3>
+                  <p className="text-blue-600 font-medium">Rerum Engenharia de Sistemas LTDA</p>
+                  <p className="text-gray-600 text-sm">C#.NET Core Angular - SQL Server</p>
+                  <p className="text-gray-500 text-sm">Varginha, Minas Gerais, Brazil</p>
                 </div>
-                <span className="text-gray-500 text-sm">2009 - Present</span>
+                <span className="text-gray-500 text-sm">January 2016 - Present (8 years 7 months)</span>
               </div>
               <ul className="text-gray-600 space-y-1 ml-4">
-                <li>• Led development of enterprise applications using Angular and .NET Core</li>
-                <li>• Specialized in legacy system modernization and microservices architecture</li>
-                <li>• Mentored development teams and conducted technical leadership</li>
-                <li>• Developed SDKs and optimized performance and scalability of complex systems</li>
-                <li>• Led architectural conception to delivery of innovative products</li>
+                <li>• <strong>Security Implementation Lead at Elosgate (June 2025 - Ongoing):</strong> Deployed as senior consultant responsible for platform security implementation and enhancement</li>
+                <li>• Developed robust application for data signing and approval in Azure environment with two-factor authentication</li>
+                <li>• Utilized JWT (JSON Web Tokens) for data signing, ensuring reliability and integrity of transacted information</li>
+                <li>• <strong>Lead and Architecture Role in SobControle Financeiro Project (January 2025 - Ongoing):</strong> Technical lead and software architect for modernizing legacy financial system</li>
+                <li>• Complete architectural redesign, migrating from GWT and gRPC (.NET Framework) to Angular 18 and .NET Core/.NET Framework APIs</li>
+                <li>• Developed robust API gateway with .NET Core and Yarp (Reverse Proxy) and dedicated authentication API in .NET Core 8</li>
+                <li>• <strong>Senior Consultant at ONS (2017-2024):</strong> Worked on strategic projects maintaining legacy systems and developing new features in mission-critical environment</li>
+                <li>• Implemented microservices architecture and asynchronous communication via RabbitMQ queues using Scrum methodology</li>
+                <li>• Extensive experience with .NET Framework, WebForms, ASP.NET MVC, .NET Core, Entity Framework, SQL Server, and Informix</li>
               </ul>
             </div>
 
             <div>
               <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Software Developer</h3>
-                  <p className="text-blue-600 font-medium">Early Career</p>
+                  <h3 className="text-lg font-semibold text-gray-900">Senior Full Stack Software Engineer</h3>
+                  <p className="text-blue-600 font-medium">Instituto Dataminas</p>
+                  <p className="text-gray-600 text-sm">C#.NET - IONIC</p>
+                  <p className="text-gray-500 text-sm">Varginha, Minas Gerais, Brazil</p>
                 </div>
-                <span className="text-gray-500 text-sm">2009 - 2015</span>
+                <span className="text-gray-500 text-sm">May 2020 - November 2021 (1 year 7 months)</span>
               </div>
               <ul className="text-gray-600 space-y-1 ml-4">
-                <li>• Developed desktop, web, and mobile applications using .NET Framework</li>
-                <li>• Built robust and scalable systems with focus on performance</li>
-                <li>• Implemented complex integrations and security solutions</li>
-                <li>• Gained expertise in software architecture and design patterns</li>
+                <li>• Complete development of mobile application using Ionic 3 for Android</li>
+                <li>• Development of website using ASP.NET MVC</li>
+                <li>• Architecture, development of main functionalities, and integration between mobile and web platforms</li>
+              </ul>
+            </div>
+
+            <div>
+              <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Full Stack Developer</h3>
+                  <p className="text-blue-600 font-medium">LEMAF - Laboratório de Estudos e Projetos em Manejo Florestal</p>
+                  <p className="text-gray-600 text-sm">C#.NET - ASP.NET MVC - Angular - PostgreSQL</p>
+                  <p className="text-gray-500 text-sm">Lavras e Região, Brazil</p>
+                </div>
+                <span className="text-gray-500 text-sm">July 2015 - December 2015 (6 months)</span>
+              </div>
+              <ul className="text-gray-600 space-y-1 ml-4">
+                <li>• Development of project for Brazilian federal government's Bolsa-Verde Program</li>
+                <li>• Utilized Angular for front-end and .NET Framework for back-end</li>
+                <li>• Resulted in 70% cost savings in social-environmental program's registration costs</li>
+                <li>• Increased data reliability and transparency for government program</li>
+              </ul>
+            </div>
+
+            <div>
+              <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Full Stack Developer</h3>
+                  <p className="text-blue-600 font-medium">Rerum Engenharia de Sistemas</p>
+                  <p className="text-gray-600 text-sm">Java - C# - JavaScript - SQLServer - Business Intelligence</p>
+                </div>
+                <span className="text-gray-500 text-sm">March 2008 - July 2015 (7 years 5 months)</span>
+              </div>
+              <ul className="text-gray-600 space-y-1 ml-4">
+                <li>• Development on .NET and Java platforms</li>
+                <li>• Built foundation expertise in full-stack development</li>
+                <li>• Worked with Business Intelligence solutions</li>
+                <li>• Gained experience with multiple programming languages and databases</li>
               </ul>
             </div>
           </div>
