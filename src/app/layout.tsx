@@ -7,13 +7,13 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Your Name - Full Stack Developer',
-  description: 'Full Stack Developer specialized in Angular and .NET. Check out my portfolio, resume and technical blog.',
+  title: 'José Robson Assis - Full Stack Developer',
+  description: 'Senior Software Engineer and Technical Lead with 15+ years experience in .NET Core, Angular, and software architecture.',
   keywords: 'developer, full stack, angular, .net, typescript, c#',
-  authors: [{ name: 'Your Name' }],
+  authors: [{ name: 'José Robson Assis' }],
   openGraph: {
-    title: 'Your Name - Full Stack Developer',
-    description: 'Full Stack Developer specialized in Angular and .NET',
+    title: 'José Robson Assis - Full Stack Developer',
+    description: 'Senior Software Engineer and Technical Lead with 15+ years experience in .NET Core, Angular, and software architecture.',
     type: 'website',
   },
 }

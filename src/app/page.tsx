@@ -11,12 +11,13 @@ export default function Home() {
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
               Hello, I'm{' '}
-              <span className="text-blue-600">Your Name</span>
+              <span className="text-blue-600">José Robson Assis</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Full Stack Developer specialized in{' '}
+              Senior Software Engineer and Technical Lead with{' '}
+              <span className="font-semibold text-blue-600">15+ years</span> of experience in{' '}
               <span className="font-semibold text-blue-600">Angular</span> and{' '}
-              <span className="font-semibold text-blue-600">.NET</span>, passionate about creating scalable and efficient solutions
+              <span className="font-semibold text-blue-600">.NET Core</span>, transforming ideas into high-impact solutions
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -46,9 +47,9 @@ export default function Home() {
                 About Me
               </h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>I'm a Full Stack Developer with over X years of experience creating robust and scalable web applications. My specialty is frontend development with Angular and backend with .NET.</p>
-                <p>I have a passion for clean architecture, development best practices and I always seek to stay updated with the latest market technologies. I believe that well-written code is fundamental to the success of any project.</p>
-                <p>When I'm not coding, I like to share knowledge through technical articles and contribute to the developer community.</p>
+                <p>I'm a Senior Software Engineer and Technical Lead with over 15 years of experience creating robust and scalable applications. My expertise covers fullstack development with a focus on .NET Core, C#, Angular, and software architecture.</p>
+                <p>I specialize in legacy system modernization, microservices architecture, security, and complex integrations, leading teams from architectural conception to the delivery of innovative products. I have a proven track record of optimizing performance and scalability.</p>
+                <p>Passionate about complex technical challenges and mentoring new talent, I actively contribute to the growth of the developer community and seek challenging opportunities where my skills can drive project innovation and success.</p>
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -56,7 +57,7 @@ export default function Home() {
                 <Globe className="w-12 h-12 text-blue-600 mx-auto mb-4" />
                 <h3 className="font-semibold text-gray-900 mb-2">Frontend</h3>
                 <p className="text-gray-600 text-sm">
-                  Angular, TypeScript, RxJS, Tailwind CSS
+                  Angular, TypeScript, RxJS, HTML5/CSS3
                 </p>
               </div>
               <div className="bg-green-50 p-6 rounded-lg text-center">
@@ -70,7 +71,7 @@ export default function Home() {
                 <Code className="w-12 h-12 text-purple-600 mx-auto mb-4" />
                 <h3 className="font-semibold text-gray-900 mb-2">Architecture</h3>
                 <p className="text-gray-600 text-sm">
-                  Clean Architecture, SOLID, DDD, Microservices, RESTful APIs
+                  Microservices, Clean Architecture, SOLID, Legacy Modernization
                 </p>
               </div>
             </div>
@@ -88,10 +89,10 @@ export default function Home() {
             Let's work together?
           </h2>
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            I'm always open to new challenges and opportunities. Get in touch to talk about your next project.
+            I'm always open to challenging opportunities where my skills can drive innovation and success. Get in touch to discuss your next project.
           </p>
           <a
-            href="mailto:your.email@example.com"
+            href="mailto:robsbq@gmail.com"
             className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
           >
             Get in Touch

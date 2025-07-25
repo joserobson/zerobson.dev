@@ -9,14 +9,14 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Contact</h3>
             <div className="space-y-2">
               <a
-                href="mailto:your.email@example.com"
+                href="mailto:robsbq@gmail.com"
                 className="flex items-center text-gray-300 hover:text-white transition-colors"
               >
                 <Mail size={16} className="mr-2" />
-                your.email@example.com
+                robsbq@gmail.com
               </a>
               <a
-                href="https://linkedin.com/in/your-profile"
+                href="https://linkedin.com/in/joserobsonassis"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center text-gray-300 hover:text-white transition-colors"
@@ -25,7 +25,7 @@ export default function Footer() {
                 LinkedIn
               </a>
               <a
-                href="https://github.com/your-username"
+                href="https://github.com/joserobson"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center text-gray-300 hover:text-white transition-colors"
@@ -39,25 +39,25 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Technologies</h3>
             <div className="text-gray-300 space-y-1">
-              <p>Angular • TypeScript</p>
-              <p>.NET • C#</p>
+              <p>Angular • TypeScript • RxJS</p>
+              <p>.NET Core • C# • Microservices</p>
               <p>SQL Server • PostgreSQL</p>
-              <p>Azure • Docker</p>
+              <p>Architecture • Legacy Modernization</p>
             </div>
           </div>
 
           <div>
             <h3 className="text-lg font-semibold mb-4">About</h3>
             <p className="text-gray-300 text-sm leading-relaxed">
-              Full Stack Developer passionate about creating scalable and efficient solutions. 
-              Always seeking to learn new technologies and share knowledge.
+              Senior Software Engineer and Technical Lead with 15+ years of experience, passionate about 
+              transforming ideas into high-impact solutions and mentoring new talent.
             </p>
           </div>
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400 text-sm">
-            © {new Date().getFullYear()} Your Name. All rights reserved.
+            © {new Date().getFullYear()} José Robson Assis. All rights reserved.
           </p>
         </div>
       </div>

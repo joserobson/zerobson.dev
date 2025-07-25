@@ -49,7 +49,7 @@ export default function Header() {
               className="text-gray-700 hover:text-blue-600"
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            José Robson Assis
           </div>
         </div>
 
