@@ -49,9 +49,9 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             </div>
 
             {/* Title */}
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
               {post.title}
-            </h1>
+            </h2>
 
             {/* Meta Information */}
             <div className="flex items-center text-sm text-gray-500 space-x-6 mb-8 pb-8 border-b border-gray-200">
