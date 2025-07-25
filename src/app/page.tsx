@@ -46,7 +46,7 @@ export default function Home() {
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 About Me
               </h2>
-              <div className="space-y-4 text-gray-600 leading-relaxed">
+              <div className="space-y-4 text-gray-600 leading-relaxed text-justify">
               <p>I'm a Senior Software Engineer with over 15 years of experience in building and maintaining robust web applications. My expertise covers fullstack development with a focus on .NET Framework, .NET Core, C#, Angular, and software architecture.</p>
                 <p>I have a solid background in system maintenance, efficiently handling bug fixes, new features, and performance optimizations. I'm passionate about tackling complex technical challenges and mentoring new talent, actively contributing to team growth and seeking opportunities to drive project innovation and success.</p>
               </div>
