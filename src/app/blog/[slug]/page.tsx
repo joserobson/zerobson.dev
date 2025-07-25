@@ -67,6 +67,7 @@ export default function BlogPost({ params }: BlogPostPageProps) {
           </div>
 
           <div className="prose prose-lg max-w-none">
+          <div className="prose prose-lg max-w-none prose-gray prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6 prose-headings:mb-4 prose-headings:mt-8 prose-li:text-gray-700 prose-strong:text-gray-900 prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-pre:bg-gray-900 prose-pre:text-gray-100">
             <MDXRemote source={post.content} />
           </div>
         </article>
