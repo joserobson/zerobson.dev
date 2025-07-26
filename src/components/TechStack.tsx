@@ -6,17 +6,18 @@ interface TechItem {
 
 const techStack: TechItem[] = [
   { name: 'Angular', category: 'Frontend', level: 'Advanced' },
-  { name: 'TypeScript', category: 'Frontend', level: 'Advanced' },
-  { name: 'RxJS', category: 'Frontend', level: 'Advanced' },
+  { name: 'TypeScript', category: 'Frontend', level: 'Advanced' },  
   { name: 'HTML5/CSS3', category: 'Frontend', level: 'Advanced' },
-  { name: 'Tailwind CSS', category: 'Frontend', level: 'Intermediate' },
+  { name: 'AspNet Mvc', category: 'Frontend', level: 'Advanced' },
   { name: '.NET Core', category: 'Backend', level: 'Advanced' },
+  { name: '.NET Framework', category: 'Backend', level: 'Advanced' },
   { name: 'C#', category: 'Backend', level: 'Advanced' },
   { name: 'Entity Framework', category: 'Backend', level: 'Advanced' },
-  { name: 'SQL Server', category: 'Database', level: 'Advanced' },
+  { name: 'SQL Server', category: 'Database', level: 'Intermediate' },
   { name: 'PostgreSQL', category: 'Database', level: 'Intermediate' },
   { name: 'Azure', category: 'Cloud', level: 'Intermediate' },
   { name: 'Docker', category: 'DevOps', level: 'Intermediate' },
+  { name: 'RabbitMq', category: 'DevOps', level: 'Intermediate' },
   { name: 'Git', category: 'Tools', level: 'Advanced' },
 ]
 
