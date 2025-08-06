@@ -9,7 +9,7 @@ export default function Resume() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
             <div>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">José Robson Assis</h1>
-              <p className="text-xl text-gray-600">Senior Software Engineer | Technical Lead</p>
+              <p className="text-xl text-gray-600">Senior Software Engineer</p>
             </div>
             <button className="mt-4 md:mt-0 inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
               <Download size={16} className="mr-2" />
@@ -45,9 +45,9 @@ export default function Resume() {
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Professional Summary</h2>
           <p className="text-gray-600 leading-relaxed">
-            With over 15 years of experience in the technology sector, I work as a Senior Software Engineer and Technical Lead, 
+            With over 15 years of experience in the technology sector, I work as a Senior Software Engineer, 
             transforming ideas into high-impact solutions. My expertise covers fullstack development with a focus on .NET Core, 
-            C#, Angular, and software architecture, building robust and scalable systems for Desktop, Web, and Mobile platforms. 
+            C#, Angular, and software architecture, building systems for Desktop, Web, and Mobile platforms. 
             I specialize in legacy system modernization, microservices architecture, security, and complex integrations, leading 
             teams from architectural conception to the delivery of innovative products.
           </p>
@@ -61,7 +61,7 @@ export default function Resume() {
             <div>
               <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Senior Full Stack Software Engineer | Technical Lead | Software Architect</h3>
+                  <h3 className="text-lg font-semibold text-gray-900">Senior Full Stack Software Engineer | Software Architect</h3>
                   <p className="text-blue-600 font-medium">Rerum Engenharia de Sistemas LTDA</p>
                   <p className="text-gray-600 text-sm">C#.NET Core Angular - SQL Server</p>
                   <p className="text-gray-500 text-sm">Varginha, Minas Gerais, Brazil</p>
