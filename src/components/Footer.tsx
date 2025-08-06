@@ -49,7 +49,7 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">About</h3>
             <p className="text-gray-300 text-sm leading-relaxed">
-              Senior Software Engineer and Technical Lead with 15+ years of experience, passionate about 
+              Senior Software Engineer with 15+ years of experience, passionate about 
               transforming ideas into high-impact solutions and mentoring new talent.
             </p>
           </div>
