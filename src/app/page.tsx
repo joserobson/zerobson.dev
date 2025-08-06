@@ -14,7 +14,7 @@ export default function Home() {
               <span className="text-blue-600">José Robson de Assis</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Senior Software Engineer and Technical Lead with{' '}
+              Senior Software Engineer with{' '}
               <span className="font-semibold text-blue-600">15+ years</span> of experience in{' '}
               <span className="font-semibold text-blue-600">Angular</span> and{' '}
               <span className="font-semibold text-blue-600">.NET Core</span>, transforming ideas into high-impact solutions
