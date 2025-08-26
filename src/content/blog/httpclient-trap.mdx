@@ -1,0 +1,54 @@
+
+# 🚀 Avoiding the `HttpClient` trap in .NET
+
+This week I ran into an interesting error while working with `HttpClient` in .NET:  
+
+> **"This instance has already started one or more requests. Properties can only be modified before sending the first request."**
+
+At first glance, it’s confusing — especially if you’ve seen examples online where people just create a new `HttpClient`, set `BaseAddress`, add headers, and everything works fine.  
+
+So why did it fail for me? 🤔  
+
+👉 Because I’m using **`IHttpClientFactory`** (best practice in modern .NET).  
+When you create a client via the factory, it’s **pooled and reused** behind the scenes. That means you **can’t change `BaseAddress` or `DefaultRequestHeaders` after the first request**.  
+
+And that’s exactly what triggered the exception.  
+
+---
+
+### 🔑 The Solution: `HttpRequestMessage`
+When you need **dynamic headers per request** (for example, a bearer token that changes), you should build the request like this:
+
+```csharp
+var request = new HttpRequestMessage(HttpMethod.Post, "api/endpoint");
+request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+var response = await _httpClient.SendAsync(request);
+```
+
+Notice how the headers are added **to the request**, not the client.  
+This way, you avoid mutating a pooled client while still reaping the benefits of `HttpClientFactory` (lifetime management, pooling, DNS refresh, etc.).
+
+---
+
+### 🔍 Why you don’t see this error in other examples
+If you create `new HttpClient()` manually for every request, you won’t hit this error — because each instance is fresh.  
+But that pattern is **not recommended**: it can exhaust sockets under load.  
+
+That’s why `IHttpClientFactory` was introduced in .NET Core 2.1.  
+It gives you proper lifecycle management and avoids socket exhaustion.  
+The trade-off is: you must handle **dynamic request details** with `HttpRequestMessage`.  
+
+---
+
+✅ Takeaway:  
+- Use `IHttpClientFactory` whenever possible.  
+- Configure static settings (`BaseAddress`, `Accept`, etc.) in `AddHttpClient`.  
+- Use `HttpRequestMessage` when you need **per-request headers**.  
+
+This small shift saves you from hard-to-debug errors and keeps your code aligned with modern .NET practices.  
+
+---
+
+👉 Question for you:  
+Have you also stumbled upon this `HttpClient` error? How did you handle it in your projects?  

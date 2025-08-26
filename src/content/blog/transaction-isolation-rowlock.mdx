@@ -1,0 +1,127 @@
+---
+title: "Mastering Transaction Isolation Levels and Row-Level Locking in .NET"
+date: "2024-02-15"
+excerpt: "Understand how transaction isolation levels impact concurrency, learn when to use explicit transactions and row-level locks, and discover how to handle deadlocks and race conditions in .NET applications."
+tags: ["Databases", "SQL Server", "Transactions", "Isolation Levels", ".NET", "Concurrency"]
+---
+
+# Mastering Transaction Isolation Levels and Row-Level Locking in .NET
+
+Database concurrency is one of the most critical aspects of building robust applications. **Transaction isolation levels** define how much one transaction is protected from the effects of other concurrent transactions. Choosing the right level helps balance **data consistency** and **system performance**.
+
+---
+
+## 🔑 Transaction Isolation Levels
+
+The isolation level determines how concurrent transactions interact with each other. The three main anomalies it addresses are:
+
+- **Dirty Reads** – Reading uncommitted changes made by another transaction.
+- **Non-Repeatable Reads** – Reading the same row twice in a transaction and getting different results because another transaction updated it.
+- **Phantom Reads** – Running the same query twice but getting additional rows the second time, due to another transaction inserting new data.
+
+Common isolation levels:
+
+1. **Read Uncommitted** – Allows dirty reads. Fastest but least safe.
+2. **Read Committed** (default in SQL Server) – Prevents dirty reads but allows non-repeatable reads and phantom reads.
+3. **Repeatable Read** – Prevents dirty and non-repeatable reads, but phantom reads can still occur.
+4. **Serializable** – Highest level, prevents all three anomalies. Strong consistency but can severely limit concurrency.
+5. **Snapshot** – Provides a transactionally consistent snapshot of the data, avoiding many locks but with overhead on tempdb.
+
+---
+
+## ⚙️ When to Use Explicit Transactions with Row-Level Lock
+
+Explicit transactions give you control over **when a transaction begins and ends**, allowing finer handling of data integrity.  
+Use them when:
+
+- You need to ensure multiple operations succeed or fail together (e.g., transferring money between accounts).
+- You require **row-level consistency** when updating multiple related tables.
+- You must control **lock granularity** to avoid broader table locks.
+
+**Row-level locks** are useful when:
+
+- Multiple transactions update **different rows in the same table** at the same time.
+- You want to **minimize contention** while still ensuring correctness.
+- For high-concurrency systems (e.g., order processing, inventory management).
+
+In SQL Server, row-level locks are acquired automatically when updating individual rows. You can enforce explicit behavior using **lock hints** like `WITH (ROWLOCK)`.
+
+Example in SQL:
+
+```sql
+BEGIN TRANSACTION;
+UPDATE Orders WITH (ROWLOCK)
+SET Status = 'Processed'
+WHERE OrderId = 123;
+COMMIT TRANSACTION;
+```
+
+---
+
+## 🔄 When to Change the Isolation Level
+
+Change the isolation level when:
+
+- **Performance issues** arise due to excessive locking (consider lowering isolation).
+- **Data consistency** is critical (raise the isolation level).
+- You want to avoid blocking by using **Snapshot Isolation** or `READ COMMITTED SNAPSHOT`.
+
+In .NET, you can set it like this:
+
+```csharp
+using (var transaction = connection.BeginTransaction(System.Data.IsolationLevel.RepeatableRead))
+{
+    // Execute your commands within this transaction
+    // Isolation level ensures consistency
+    transaction.Commit();
+}
+```
+
+---
+
+## ⚠️ Deadlocks and Race Conditions
+
+- **Deadlock** – Occurs when two transactions hold locks and wait for each other to release them. SQL Server detects and kills one transaction (the "victim").
+- **Race Condition** – Happens when multiple processes attempt to update the same resource simultaneously, leading to inconsistent results.
+
+**Best Practices**:
+- Always access resources in a **consistent order** to avoid deadlocks.
+- Keep transactions **short** to reduce lock contention.
+- Use **row-level locks** instead of broader locks where possible.
+- Retry failed transactions after a deadlock (SQL Server throws error 1205).
+
+---
+
+## 🛠️ Row-Level Locking in .NET
+
+In .NET (with Entity Framework or ADO.NET), you can enforce row-level locks:
+
+**Entity Framework Example:**
+
+```csharp
+using var transaction = dbContext.Database.BeginTransaction(System.Data.IsolationLevel.Serializable);
+
+var order = dbContext.Orders
+    .FromSqlRaw("SELECT * FROM Orders WITH (ROWLOCK, UPDLOCK) WHERE OrderId = {0}", orderId)
+    .First();
+
+order.Status = "Processed";
+dbContext.SaveChanges();
+
+transaction.Commit();
+```
+
+**Key Points:**
+- `ROWLOCK` enforces row-level granularity.
+- `UPDLOCK` ensures other transactions can’t read the row until the update completes.
+- Using explicit transactions ensures atomicity and avoids race conditions.
+
+---
+
+## 📌 Summary
+
+- **Isolation levels** balance consistency and performance.
+- Use **explicit transactions** and **row-level locks** for high-concurrency scenarios requiring data integrity.
+- Change isolation levels strategically depending on performance vs. consistency needs.
+- Handle **deadlocks** by keeping transactions short, ordering resources consistently, and retrying failed operations.
+- In .NET, use **ADO.NET or Entity Framework** with explicit transactions and lock hints for precise concurrency control.
