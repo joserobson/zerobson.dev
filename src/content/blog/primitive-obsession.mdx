@@ -1,19 +1,21 @@
 ---
 title: 'Tackling Primitive Obsession in C#'
-date: "2025-09-26"
-description: 'Understanding and fixing the Primitive Obsession code smell in C# with value objects.'
+date: "2024-01-20"
+excerpt: 'Learn how to identify and eliminate the Primitive Obsession code smell in C# by creating expressive value objects that make your code more robust and maintainable.'
 tags: ["C#", "Code Smell", "Primitive Obsession", "Value Objects"]
 ---
 
 # Tackling Primitive Obsession in C#
 
-Primitive Obsession is a code smell where we excessively use primitive data types (like `string`, `int`, `decimal`) to represent meaningful concepts in our domain. Instead of creating specific, small classes for things like a phone number, an email address, or a monetary value, we just pass around simple strings and numbers.
+**Primitive Obsession** is a common code smell where developers excessively use primitive data types (`string`, `int`, `decimal`) to represent meaningful domain concepts. Instead of creating specific, small classes for concepts like phone numbers, email addresses, or monetary values, we simply pass around basic strings and numbers.
 
-While this might seem quick and easy initially, it often leads to fragile, less expressive, and harder-to-maintain code.
+While this approach might seem quick and convenient initially, it often leads to **fragile, less expressive, and harder-to-maintain code**.
 
-## The Problem: A Simple Example
+---
 
-Imagine we have `Customer` and `Order` classes in an e-commerce application. A first-pass implementation suffering from primitive obsession might look like this:
+## 🚨 The Problem: A Simple Example
+
+Consider these `Customer` and `Order` classes in an e-commerce application. This implementation suffers from primitive obsession:
 
 ```csharp
 public class Customer
@@ -21,7 +23,7 @@ public class Customer
     public Guid Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    // What makes this a valid email?
+    // ❌ What makes this a valid email?
     public string Email { get; set; }
 }
 
@@ -29,27 +31,47 @@ public class Order
 {
     public Guid Id { get; set; }
     public Guid CustomerId { get; set; }
-    // Is this price in USD, EUR, or something else?
+    // ❌ Is this price in USD, EUR, or something else?
     public decimal TotalPrice { get; set; }
-    // How do we ensure this is a valid ISO currency code?
+    // ❌ How do we ensure this is a valid ISO currency code?
     public string Currency { get; set; }
 }
 ```
 
-## Why Is This a Problem?
+---
+
+## ⚠️ Why Is This a Problem?
 
 This approach has several significant downsides:
 
-*   **Implicit Knowledge:** The code doesn't explicitly state the rules. What constitutes a valid email? What format should the currency string be in? This knowledge is scattered across the codebase in various validation methods, or worse, just exists in the developers' heads.
-*   **No Centralized Validation:** If you need to validate an email, you have to repeat the validation logic everywhere you accept an email string. If the validation rules change, you have to find and update every single occurrence.
-*   **Lack of Type Safety:** Any string can be passed into the `Email` property, and any decimal can be assigned to `TotalPrice`. The compiler can't help you prevent invalid data from entering your system.
-*   **Reduced Readability:** A method signature like `ProcessPayment(decimal amount, string currency)` is less clear than `ProcessPayment(Money amount)`. The second signature immediately tells you that the two parameters are related and represent a single concept.
+### 1. **Implicit Knowledge**
+The code doesn't explicitly state business rules. What constitutes a valid email? What format should the currency be? This knowledge is scattered across the codebase or exists only in developers' minds.
 
-## The Solution: Embracing Value Objects
+### 2. **No Centralized Validation**
+Email validation logic gets repeated everywhere. When rules change, you must find and update every occurrence.
+
+### 3. **Lack of Type Safety**
+Any string can be passed as an email, any decimal as a price. The compiler can't prevent invalid data from entering your system.
+
+### 4. **Reduced Readability**
+Compare these method signatures:
+```csharp
+// ❌ Unclear relationship between parameters
+ProcessPayment(decimal amount, string currency)
+
+// ✅ Clear, expressive, single concept
+ProcessPayment(Money amount)
+```
+
+---
+
+## ✅ The Solution: Embracing Value Objects
 
 The solution is to create small, immutable **Value Objects** that encapsulate the logic and validation for each domain concept. In modern C#, `record` types are perfect for this.
 
-Let's create value objects for `Email` and `Money`.
+Let's create value objects for `Email` and `Money`:
+
+### Email Value Object
 
 ```csharp
 public record Email
@@ -63,15 +85,24 @@ public record Email
 
     public static Email Create(string email)
     {
-        if (string.IsNullOrWhiteSpace(email) || !email.Contains('@'))
+        if (string.IsNullOrWhiteSpace(email) || !IsValidEmail(email))
         {
-            // Use a more robust validation library in a real app
             throw new ArgumentException("Invalid email format.", nameof(email));
         }
         return new Email(email);
     }
-}
 
+    private static bool IsValidEmail(string email)
+    {
+        // Simplified validation - use a robust library in production
+        return email.Contains('@') && email.Contains('.');
+    }
+}
+```
+
+### Money Value Object
+
+```csharp
 public record Money
 {
     public decimal Amount { get; }
@@ -89,17 +120,33 @@ public record Money
         {
             throw new ArgumentException("Amount cannot be negative.", nameof(amount));
         }
-        if (string.IsNullOrWhiteSpace(currency) || currency.Length != 3)
+        if (!IsValidCurrency(currency))
         {
-            // A real app might check against a list of valid ISO codes
             throw new ArgumentException("Invalid currency code.", nameof(currency));
         }
         return new Money(amount, currency.ToUpper());
     }
+
+    private static bool IsValidCurrency(string currency)
+    {
+        return !string.IsNullOrWhiteSpace(currency) && 
+               currency.Length == 3 && 
+               currency.All(char.IsLetter);
+    }
+
+    public Money Add(Money other)
+    {
+        if (Currency != other.Currency)
+            throw new InvalidOperationException("Cannot add different currencies");
+        
+        return new Money(Amount + other.Amount, Currency);
+    }
 }
 ```
 
-Now, we can refactor our original classes to use these new, expressive types.
+### Refactored Domain Classes
+
+Now we can refactor our original classes to use these expressive types:
 
 ```csharp
 public class Customer
@@ -107,22 +154,72 @@ public class Customer
     public Guid Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public Email Email { get; set; } // Much better!
+    public Email Email { get; set; } // ✅ Much better!
 }
 
 public class Order
 {
     public Guid Id { get; set; }
     public Guid CustomerId { get; set; }
-    public Money TotalPrice { get; set; } // Clear and type-safe
+    public Money TotalPrice { get; set; } // ✅ Clear and type-safe
 }
 ```
 
-## Benefits of the Refactored Approach
+---
 
-*   **Encapsulation:** All validation logic for a concept is in one place—its value object.
-*   **Expressive and Type-Safe:** The code is self-documenting. It's impossible to accidentally create an `Order` with an invalid currency or a `Customer` with a malformed email.
-*   **Maintainability:** If a business rule changes (e.g., new email validation rules), you only need to update it in one location.
-*   **Reduced Bugs:** The compiler becomes your ally, preventing a whole class of bugs related to invalid data.
+## 🎯 Benefits of the Refactored Approach
 
-By replacing primitives with simple value objects, you make your domain model richer, your code safer, and your life as a developer much easier.
+### ✅ **Encapsulation**
+All validation logic for a concept lives in one place—its value object.
+
+### ✅ **Expressive and Type-Safe**
+The code is self-documenting. It's impossible to accidentally create invalid data.
+
+### ✅ **Maintainability**
+Business rule changes require updates in only one location.
+
+### ✅ **Reduced Bugs**
+The compiler prevents entire classes of bugs related to invalid data.
+
+### ✅ **Better Testing**
+Value objects are easy to unit test in isolation.
+
+---
+
+## 💡 Usage Example
+
+```csharp
+// Creating instances
+var email = Email.Create("user@example.com");
+var price = Money.Create(99.99m, "USD");
+
+// Using in business logic
+var customer = new Customer 
+{ 
+    Email = email,
+    FirstName = "John",
+    LastName = "Doe"
+};
+
+var order = new Order 
+{ 
+    CustomerId = customer.Id,
+    TotalPrice = price
+};
+
+// Type safety prevents errors
+// var invalidEmail = Email.Create("not-an-email"); // ❌ Throws exception
+// var invalidMoney = Money.Create(-10, "INVALID"); // ❌ Throws exception
+```
+
+---
+
+## 🚀 Conclusion
+
+By replacing primitive obsession with **value objects**, you create:
+- **Richer domain models** that express business concepts clearly
+- **Safer code** with compile-time validation
+- **Easier maintenance** with centralized business rules
+- **Better developer experience** with self-documenting APIs
+
+Start small—identify one primitive in your codebase that represents a domain concept and wrap it in a value object. You'll immediately see the benefits and want to apply this pattern throughout your application.
