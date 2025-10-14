@@ -1,4 +1,3 @@
-
 ---
 title: "Avoiding the HttpClient Trap in .NET: Best Practices with IHttpClientFactory"
 date: "2024-02-01"
@@ -6,24 +5,26 @@ excerpt: "Learn how to avoid common HttpClient pitfalls when using IHttpClientFa
 tags: [".NET", "HttpClient", "IHttpClientFactory", "Best Practices", "C#"]
 ---
 
-# 🚀 Avoiding the `HttpClient` trap in .NET
+# Avoiding the HttpClient Trap in .NET: Best Practices with IHttpClientFactory
 
-This week I ran into an interesting error while working with `HttpClient` in .NET:  
+This week I ran into an interesting error while working with `HttpClient` in .NET:
 
 > **"This instance has already started one or more requests. Properties can only be modified before sending the first request."**
 
-At first glance, it’s confusing — especially if you’ve seen examples online where people just create a new `HttpClient`, set `BaseAddress`, add headers, and everything works fine.  
+At first glance, it's confusing — especially if you've seen examples online where people just create a new `HttpClient`, set `BaseAddress`, add headers, and everything works fine.
 
-So why did it fail for me? 🤔  
+So why did it fail for me? 🤔
 
-👉 Because I’m using **`IHttpClientFactory`** (best practice in modern .NET).  
-When you create a client via the factory, it’s **pooled and reused** behind the scenes. That means you **can’t change `BaseAddress` or `DefaultRequestHeaders` after the first request**.  
+**Because I'm using `IHttpClientFactory`** (best practice in modern .NET).
 
-And that’s exactly what triggered the exception.  
+When you create a client via the factory, it's **pooled and reused** behind the scenes. That means you **can't change `BaseAddress` or `DefaultRequestHeaders` after the first request**.
+
+And that's exactly what triggered the exception.
 
 ---
 
-### 🔑 The Solution: `HttpRequestMessage`
+## 🔑 The Solution: HttpRequestMessage
+
 When you need **dynamic headers per request** (for example, a bearer token that changes), you should build the request like this:
 
 ```csharp
@@ -33,29 +34,79 @@ request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 var response = await _httpClient.SendAsync(request);
 ```
 
-Notice how the headers are added **to the request**, not the client.  
+Notice how the headers are added **to the request**, not the client.
+
 This way, you avoid mutating a pooled client while still reaping the benefits of `HttpClientFactory` (lifetime management, pooling, DNS refresh, etc.).
 
 ---
 
-### 🔍 Why you don’t see this error in other examples
-If you create `new HttpClient()` manually for every request, you won’t hit this error — because each instance is fresh.  
-But that pattern is **not recommended**: it can exhaust sockets under load.  
+## 🔍 Why You Don't See This Error in Other Examples
 
-That’s why `IHttpClientFactory` was introduced in .NET Core 2.1.  
-It gives you proper lifecycle management and avoids socket exhaustion.  
-The trade-off is: you must handle **dynamic request details** with `HttpRequestMessage`.  
+If you create `new HttpClient()` manually for every request, you won't hit this error — because each instance is fresh.
 
----
+But that pattern is **not recommended**: it can exhaust sockets under load.
 
-✅ Takeaway:  
-- Use `IHttpClientFactory` whenever possible.  
-- Configure static settings (`BaseAddress`, `Accept`, etc.) in `AddHttpClient`.  
-- Use `HttpRequestMessage` when you need **per-request headers**.  
+That's why `IHttpClientFactory` was introduced in .NET Core 2.1. It gives you proper lifecycle management and avoids socket exhaustion.
 
-This small shift saves you from hard-to-debug errors and keeps your code aligned with modern .NET practices.  
+The trade-off is: you must handle **dynamic request details** with `HttpRequestMessage`.
 
 ---
 
-👉 Question for you:  
-Have you also stumbled upon this `HttpClient` error? How did you handle it in your projects?  
+## ✅ Best Practices Summary
+
+### Configure Static Settings in Startup
+
+```csharp
+services.AddHttpClient<ApiService>(client =>
+{
+    client.BaseAddress = new Uri("https://api.example.com/");
+    client.DefaultRequestHeaders.Accept.Clear();
+    client.DefaultRequestHeaders.Accept.Add(
+        new MediaTypeWithQualityHeaderValue("application/json"));
+});
+```
+
+### Use HttpRequestMessage for Dynamic Data
+
+```csharp
+public class ApiService
+{
+    private readonly HttpClient _httpClient;
+
+    public ApiService(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+    }
+
+    public async Task<T> GetDataAsync<T>(string endpoint, string authToken)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, endpoint);
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
+
+        var response = await _httpClient.SendAsync(request);
+        response.EnsureSuccessStatusCode();
+
+        var json = await response.Content.ReadAsStringAsync();
+        return JsonSerializer.Deserialize<T>(json);
+    }
+}
+```
+
+---
+
+## 🎯 Key Takeaways
+
+- **Use `IHttpClientFactory`** whenever possible for proper lifecycle management
+- **Configure static settings** (`BaseAddress`, `Accept`, etc.) in `AddHttpClient`
+- **Use `HttpRequestMessage`** when you need per-request headers or dynamic configuration
+- **Avoid mutating** the `HttpClient` instance after the first request
+
+This small shift saves you from hard-to-debug errors and keeps your code aligned with modern .NET practices.
+
+---
+
+## 💭 Final Thoughts
+
+Have you also stumbled upon this `HttpClient` error? The key is understanding that `IHttpClientFactory` pools instances for performance, which means you need to think differently about how you configure requests.
+
+Once you embrace the `HttpRequestMessage` pattern, you'll find it actually leads to cleaner, more explicit code that's easier to test and maintain.
