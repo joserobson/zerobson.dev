@@ -17,7 +17,7 @@ While this approach might seem quick and convenient initially, it often leads to
 
 Consider these `Customer` and `Order` classes in an e-commerce application. This implementation suffers from primitive obsession:
 
-```csharp
+```csharp filename="Customer.cs"
 public class Customer
 {
     public Guid Id { get; set; }
@@ -73,7 +73,7 @@ Let's create value objects for `Email` and `Money`:
 
 ### Email Value Object
 
-```csharp
+```csharp filename="Email.cs"
 public record Email
 {
     public string Value { get; }
@@ -102,7 +102,7 @@ public record Email
 
 ### Money Value Object
 
-```csharp
+```csharp filename="Money.cs"
 public record Money
 {
     public decimal Amount { get; }
@@ -148,7 +148,7 @@ public record Money
 
 Now we can refactor our original classes to use these expressive types:
 
-```csharp
+```csharp filename="RefactoredModels.cs"
 public class Customer
 {
     public Guid Id { get; set; }
@@ -188,7 +188,7 @@ Value objects are easy to unit test in isolation.
 
 ## 💡 Usage Example
 
-```csharp
+```csharp filename="Program.cs"
 // Creating instances
 var email = Email.Create("user@example.com");
 var price = Money.Create(99.99m, "USD");

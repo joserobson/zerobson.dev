@@ -1,3 +1,5 @@
+import CodeBlock from '@/components/CodeBlock';
+
 // MDX Components with proper styling for MDXRemote
 export const mdxComponents = {
   h1: ({ children }: any) => (
@@ -22,14 +24,31 @@ export const mdxComponents = {
     <em className="italic text-gray-700">{children}</em>
   ),
   code: ({ children }: any) => (
-    <code className="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800 border">
+    <code className="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800 border text-red-600">
       {children}
     </code>
   ),
-  pre: ({ children }: any) => (
-    <pre className="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto mb-8 border">
-      <code className="text-sm leading-relaxed">{children}</code>
-    </pre>
+  pre: ({ children, ...props }: any) => {
+    // Extract code content and language from children
+    const codeElement = children?.props?.children;
+    const language = children?.props?.className?.replace('language-', '') || 'csharp';
+    const filename = props['data-filename'];
+    
+    if (typeof codeElement === 'string') {
+      return (
+        <CodeBlock language={language} filename={filename}>
+          {codeElement}
+        </CodeBlock>
+      );
+    }
+    
+    // Fallback for non-code pre elements
+    return (
+      <pre className="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto mb-8 border">
+        <code className="text-sm leading-relaxed">{children}</code>
+      </pre>
+    );
+  },
   ),
   ul: ({ children }: any) => (
     <ul className="list-disc list-outside text-gray-700 mb-6 space-y-2 pl-6 leading-relaxed">
