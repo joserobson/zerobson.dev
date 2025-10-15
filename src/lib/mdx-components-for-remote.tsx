@@ -49,7 +49,6 @@ export const mdxComponents = {
       </pre>
     );
   },
-  ),
   ul: ({ children }: any) => (
     <ul className="list-disc list-outside text-gray-700 mb-6 space-y-2 pl-6 leading-relaxed">
       {children}
