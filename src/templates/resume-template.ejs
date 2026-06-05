@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= resumeTitle %></title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 20px auto;
+            max-width: 850px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #0056b3;
+        }
+        .download-pdf {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 8px 15px;
+            background-color: #0056b3;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        header h1 {
+            margin: 0;
+            color: #0056b3;
+            font-size: 2.2em;
+        }
+        header p {
+            margin: 5px 0;
+            font-size: 1.1em;
+            color: #555;
+        }
+        .contact-info {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+        }
+        .contact-info a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+        section {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        section h2 {
+            color: #0056b3;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+        }
+        .experience-item, .education-item {
+            margin-bottom: 20px;
+            border-left: 4px solid #0056b3;
+            padding-left: 15px;
+        }
+        .experience-item h3, .education-item h3 {
+            margin: 0;
+            color: #333;
+            font-size: 1.2em;
+        }
+        .experience-item p, .education-item p {
+            margin: 5px 0 10px 0;
+            font-size: 0.95em;
+            color: #666;
+        }
+        .experience-item ul {
+            list-style: disc;
+            margin: 0;
+            padding-left: 20px;
+        }
+        .experience-item ul li {
+            margin-bottom: 5px;
+            color: #444;
+        }
+        .skills-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skills-list li {
+            background-color: #e0f7fa;
+            color: #007bb5;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        .certifications-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .certifications-list ul li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Removed the absolute download button from the PDF template as it's not needed in the printed PDF -->
+
+    <header>
+        <h1><%= basics.name %></h1>
+        <p><%= basics.title %></p>
+        <div class="contact-info">
+            <%= translations.phone %>: <%= basics.phone %> | <%= translations.email %>: <%= basics.email %> | 
+            LinkedIn: <a href="<%= basics.linkedinUrl %>" target="_blank"><%= basics.linkedin %></a> |
+            GitHub: <a href="<%= basics.githubUrl %>" target="_blank"><%= basics.github %></a>
+        </div>
+    </header>
+
+    <section>
+        <h2><%= translations.summary %></h2>
+        <p><%= basics.summary %></p>
+    </section>
+
+    <section>
+        <h2><%= translations.experience %></h2>
+
+        <% experience.forEach(function(exp) { %>
+        <div class="experience-item">
+            <h3><%= exp.company %></h3>
+            
+            <% exp.roles.forEach(function(role) { %>
+            <p>
+              <%= role.title %> | <%= role.technologies %><br>
+              <%= role.period %><br>
+              <% if(role.location) { %>
+                <%= role.location %>
+              <% } %>
+            </p>
+            <ul>
+                <% role.responsibilities.forEach(function(resp) { %>
+                <li><%- resp %></li>
+                <% }); %>
+            </ul>
+            <% }); %>
+        </div>
+        <% }); %>
+
+    </section>
+
+    <section>
+        <h2><%= translations.education %></h2>
+        <% education.forEach(function(edu) { %>
+        <div class="education-item">
+            <h3><%= edu.institution %></h3>
+            <p><%= edu.degree %><br>
+            <%= edu.period %></p>
+        </div>
+        <% }); %>
+    </section>
+
+    <section class="certifications-list">
+        <h2><%= translations.certifications %></h2>
+        <ul>
+            <% certifications.forEach(function(cert) { %>
+            <li><%= cert %></li>
+            <% }); %>
+        </ul>
+    </section>
+
+</body>
+</html>

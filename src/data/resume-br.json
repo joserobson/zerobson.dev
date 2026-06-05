@@ -1,0 +1,125 @@
+{
+  "basics": {
+    "name": "José Robson Assis",
+    "title": "Engenheiro de Software Sênior | Líder Técnico | Desenvolvedor Full-Stack",
+    "email": "robsbq@gmail.com",
+    "phone": "+55 (32) 99993-4311",
+    "location": "Brasil",
+    "github": "joserobson",
+    "githubUrl": "https://github.com/joserobson",
+    "linkedin": "José Robson Assis",
+    "linkedinUrl": "https://www.linkedin.com/in/jose-robson-assis",
+    "summary": "Com mais de 15 anos de experiência no setor de tecnologia, atuo como Engenheiro de Software Sênior e Líder Técnico, transformando ideias em soluções de alto impacto. Minha expertise abrange o desenvolvimento Fullstack com foco em .NET (Core/Framework), C#, Angular e arquitetura de software, construindo sistemas robustos e escaláveis para plataformas Desktop, Web e Mobile. Sou especialista em modernização de sistemas legados, arquitetura de microsserviços, segurança e integrações complexas, liderando equipes desde a concepção arquitetural até a entrega de produtos inovadores."
+  },
+  "experience": [
+    {
+      "company": "Rerum Engenharia de Sistemas LTDA",
+      "roles": [
+        {
+          "title": "Engenheiro de Software Sênior Full Stack | Líder Técnico | Arquiteto de Software",
+          "technologies": "C#.NET Core Angular - SQL Server",
+          "location": "Varginha, Minas Gerais, Brasil",
+          "period": "Janeiro de 2016 – Presente (9+ anos)",
+          "responsibilities": [
+            "<strong>Engenheiro Full Stack Sênior — Novo Mediador | MTE (Ministério do Trabalho e Emprego) (Abril de 2026 - Presente):</strong> Desenvolvedor fullstack em uma plataforma governamental estratégica para mediação digital de conflitos trabalhistas.",
+            "Construção do <strong>nm-frontend</strong> utilizando <strong>Vue.js 3 + TypeScript</strong>, entregando uma SPA moderna com gerenciamento de estado reativo e componentes de UI acessíveis.",
+            "Desenvolvimento dos serviços backend <strong>nm-api</strong> lidando com as regras de negócio para fluxos de trabalho e integrações da mediação trabalhista.",
+            "Implementação de autenticação <strong>OIDC/OAuth2</strong> via provedor de identidade GOV.BR (SERPRO/estaleiro) com manipulação segura de tokens e fluxos de logout.",
+            "Integração com APIs governamentais e infraestrutura de federação de identidade (h-novomediador-hml.trabalho.gov.br).",
+            "Trabalho com metodologia ágil (Scrum) em uma equipe multidisciplinar contratada pelo governo.",
+            "<strong>Líder de Implementação de Segurança na Elosgate (Início: Junho de 2025 - Em Andamento):</strong> Alocado como consultor sênior na Elosgate, responsável pela implementação e aprimoramento da segurança interna da plataforma.",
+            "Desenvolvimento de uma aplicação robusta para assinatura e aprovação de dados em ambiente <strong>Azure</strong>, incorporando <strong>autenticação de dois fatores</strong> para rigoroso controle de acesso.",
+            "Utilização de <strong>JWT (JSON Web Tokens)</strong> para assinatura de dados, garantindo a confiabilidade e integridade das informações em trânsito.",
+            "<strong>Liderança e Arquitetura no Projeto SobControle Financeiro (Início: Janeiro de 2025 - Em Andamento):</strong> Líder técnico e arquiteto de software responsável pela reativação e modernização de um sistema financeiro legado (parado por 8 anos) da própria Rerum.",
+            "Redefinição completa da arquitetura, migrando a comunicação cliente-servidor de GWT e gRPC (.NET Framework) para uma abordagem moderna com <strong>Angular 18</strong> e APIs <strong>.NET Core</strong> / <strong>.NET Framework</strong>.",
+            "Desenvolvimento de um gateway de API robusto com <strong>.NET Core</strong> e <strong>Yarp (Reverse Proxy)</strong> e criação de uma API de autenticação dedicada em <strong>.NET Core 8</strong>, reforçando segurança e modularidade.",
+            "<strong>Consultor Sênior Alocado no ONS (Operador Nacional do Sistema Elétrico) (2017-2024):</strong> Atuação em diversos projetos estratégicos, responsável pela manutenção de sistemas legados, desenvolvimento de novas funcionalidades e correção de bugs em um ambiente de missão crítica.",
+            "Implementação de arquitetura de microsserviços e comunicação assíncrona via <strong>filas RabbitMQ</strong>, aplicando metodologias ágeis (<strong>Scrum</strong>) para gestão do ciclo de desenvolvimento."
+          ]
+        }
+      ]
+    },
+    {
+      "company": "Instituto Dataminas",
+      "roles": [
+        {
+          "title": "Engenheiro de Software Sênior Full Stack",
+          "technologies": "C#.NET - IONIC",
+          "location": "Varginha, Minas Gerais, Brasil",
+          "period": "Maio de 2020 – Novembro de 2021 (1 ano e 7 meses)",
+          "responsibilities": [
+            "Desenvolvimento completo de um aplicativo móvel utilizando Ionic 3 para Android.",
+            "Desenvolvimento de um site utilizando ASP.NET MVC.",
+            "Arquitetura, desenvolvimento das funcionalidades principais e integração entre as plataformas móvel e web."
+          ]
+        }
+      ]
+    },
+    {
+      "company": "LEMAF - Laboratório de Estudos e Projetos em Manejo Florestal",
+      "roles": [
+        {
+          "title": "Desenvolvedor Full Stack",
+          "technologies": "C#.NET - ASP.NET MVC - Angular - PostgreSQL",
+          "location": "Lavras e Região, Brasil",
+          "period": "Julho de 2015 – Dezembro de 2015 (6 meses)",
+          "responsibilities": [
+            "Desenvolvimento de um projeto para o Programa Bolsa-Verde do governo federal.",
+            "Utilização de Angular no front-end e .NET Framework no back-end.",
+            "Resultados em economia de 70% nos custos de cadastro do programa socioambiental e aumento da confiabilidade e transparência dos dados."
+          ]
+        }
+      ]
+    },
+    {
+      "company": "Rerum Engenharia de Sistemas",
+      "roles": [
+        {
+          "title": "Desenvolvedor Full Stack",
+          "technologies": "Java - C# - JavaScript - SQLServer - Business Intelligence",
+          "location": "",
+          "period": "Março de 2008 – Julho de 2015 (7 anos e 5 meses)",
+          "responsibilities": [
+            "Desenvolvimento nas plataformas .NET e Java.",
+            "Construção de base sólida em desenvolvimento full-stack."
+          ]
+        }
+      ]
+    }
+  ],
+  "skills": {
+    "Frontend": [
+      { "name": "Angular", "level": "Avançado" },
+      { "name": "TypeScript", "level": "Avançado" },
+      { "name": "RxJS", "level": "Avançado" },
+      { "name": "HTML5/CSS3", "level": "Avançado" }
+    ],
+    "Backend": [
+      { "name": ".NET Core", "level": "Avançado" },
+      { "name": "C#", "level": "Avançado" },
+      { "name": "Entity Framework", "level": "Avançado" },
+      { "name": "SQL Server", "level": "Avançado" }
+    ],
+    "Other": [
+      "Vue.js 3", "Azure", "Docker", "Git", "PostgreSQL", "Redis", "RabbitMQ", "Microsserviços", "Clean Architecture", "SOLID", "OIDC/OAuth2"
+    ]
+  },
+  "education": [
+    {
+      "degree": "Master of Business Administration (MBA) em Gestão de Projetos de TI",
+      "institution": "Universidade Federal de Juiz de Fora",
+      "period": "2013 - 2014"
+    },
+    {
+      "degree": "Bacharelado em Ciências da Computação",
+      "institution": "Universidade Presidente Antônio Carlos",
+      "period": "2004 - 2007"
+    }
+  ],
+  "certifications": [
+    "MS: Programming in C#",
+    "MCPS: Microsoft Certified Professional",
+    "Curso Arquitetura de Software .NET"
+  ],
+  "projects": []
+}

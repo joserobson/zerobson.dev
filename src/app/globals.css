@@ -31,3 +31,57 @@ body {
     text-wrap: balance;
   }
 }
+
+@media print {
+  /* Esconde elementos que não devem aparecer no PDF */
+  header,
+  footer,
+  nav,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Reset de fundo e cores para impressão */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Remove sombras e bordas arredondadas que ficam feias no PDF */
+  .shadow-sm,
+  .shadow,
+  .shadow-md,
+  .shadow-lg {
+    box-shadow: none !important;
+  }
+
+  /* Garante que o conteúdo ocupe a página inteira */
+  .max-w-4xl {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  /* Evita quebra de página no meio de seções */
+  .bg-white {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Tamanho de página A4 com margens */
+  @page {
+    size: A4;
+    margin: 15mm 15mm 15mm 15mm;
+  }
+
+  /* Remove padding do container principal na impressão */
+  .py-12 {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Garante que links sejam legíveis */
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+}

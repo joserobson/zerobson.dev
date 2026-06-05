@@ -1,0 +1,160 @@
+{
+  "basics": {
+    "name": "José Robson Assis",
+    "title": "Senior Software Engineer",
+    "email": "robsbq@gmail.com",
+    "phone": "+55 (32) 99993-4311",
+    "location": "Brazil",
+    "github": "joserobson",
+    "githubUrl": "https://github.com/joserobson",
+    "linkedin": "José Robson Assis",
+    "linkedinUrl": "https://www.linkedin.com/in/jose-robson-assis",
+    "summary": "With over 15 years of experience in the technology sector, I work as a Senior Software Engineer, transforming ideas into high-impact solutions. My expertise covers fullstack development with a focus on .NET Core, C#, Angular, and software architecture, building systems for Desktop, Web, and Mobile platforms. I specialize in legacy system modernization, microservices architecture, security, and complex integrations, leading teams from architectural conception to the delivery of innovative products."
+  },
+  "experience": [
+    {
+      "company": "Rerum Engenharia de Sistemas LTDA",
+      "roles": [
+        {
+          "title": "Senior Full Stack Software Engineer | Software Architect",
+          "technologies": "C#.NET Core Angular - SQL Server",
+          "location": "Varginha, Minas Gerais, Brazil",
+          "period": "January 2016 - Present (9+ years)",
+          "responsibilities": [
+            "<strong>Senior Full Stack Engineer — Novo Mediador | MTE (Ministry of Labour, Brazil) · April 2026 - Present:</strong> Fullstack developer on a strategic government platform for digital mediation of labour conflicts",
+            "Built <strong>nm-frontend</strong> using <strong>Vue.js 3 + TypeScript</strong>, delivering a modern SPA with reactive state management and accessible UI components",
+            "Developed <strong>nm-api</strong> backend services handling business rules for labour mediation workflows and integrations",
+            "Implemented <strong>OIDC/OAuth2 authentication</strong> via GOV.BR identity provider (SERPRO/estaleiro) with secure token handling and logout flows",
+            "Integrated with government APIs and identity federation infrastructure (h-novomediador-hml.trabalho.gov.br)",
+            "Followed Scrum methodology in a multidisciplinary government-contracted team",
+            "<strong>Security Implementation Lead at Elosgate (June 2025 - April 2026):</strong> Deployed as senior consultant responsible for platform security implementation and enhancement",
+            "Developed robust application for data signing and approval in Azure environment with two-factor authentication",
+            "Utilized JWT (JSON Web Tokens) for data signing, ensuring reliability and integrity of transacted information",
+            "<strong>Lead and Architecture Role in SobControle Financeiro Project (January 2025 - Ongoing):</strong> Technical lead and software architect for modernizing legacy financial system",
+            "Complete architectural redesign, migrating from GWT and gRPC (.NET Framework) to Angular 18 and .NET Core/.NET Framework APIs",
+            "Developed robust API gateway with .NET Core and Yarp (Reverse Proxy) and dedicated authentication API in .NET Core 8",
+            "<strong>Senior Consultant at ONS (2017-2024):</strong> Worked on strategic projects maintaining legacy systems and developing new features in mission-critical environment",
+            "Implemented microservices architecture and asynchronous communication via RabbitMQ queues using Scrum methodology",
+            "Extensive experience with .NET Framework, WebForms, ASP.NET MVC, .NET Core, Entity Framework, SQL Server, and Informix"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "Instituto Dataminas",
+      "roles": [
+        {
+          "title": "Senior Full Stack Software Engineer",
+          "technologies": "C#.NET - IONIC",
+          "location": "Varginha, Minas Gerais, Brazil",
+          "period": "May 2020 - November 2021 (1 year 7 months)",
+          "responsibilities": [
+            "Complete development of mobile application using Ionic 3 for Android",
+            "Development of website using ASP.NET MVC",
+            "Architecture, development of main functionalities, and integration between mobile and web platforms"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "LEMAF - Laboratório de Estudos e Projetos em Manejo Florestal",
+      "roles": [
+        {
+          "title": "Full Stack Developer",
+          "technologies": "C#.NET - ASP.NET MVC - Angular - PostgreSQL",
+          "location": "Lavras e Região, Brazil",
+          "period": "July 2015 - December 2015 (6 months)",
+          "responsibilities": [
+            "Development of project for Brazilian federal government's Bolsa-Verde Program",
+            "Utilized Angular for front-end and .NET Framework for back-end",
+            "Resulted in 70% cost savings in social-environmental program's registration costs",
+            "Increased data reliability and transparency for government program"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "Rerum Engenharia de Sistemas",
+      "roles": [
+        {
+          "title": "Full Stack Developer",
+          "technologies": "Java - C# - JavaScript - SQLServer - Business Intelligence",
+          "location": "",
+          "period": "March 2008 - July 2015 (7 years 5 months)",
+          "responsibilities": [
+            "Development on .NET and Java platforms",
+            "Built foundation expertise in full-stack development",
+            "Worked with Business Intelligence solutions",
+            "Gained experience with multiple programming languages and databases"
+          ]
+        }
+      ]
+    }
+  ],
+  "skills": {
+    "Frontend": [
+      { "name": "Angular", "level": "Advanced" },
+      { "name": "TypeScript", "level": "Advanced" },
+      { "name": "RxJS", "level": "Advanced" },
+      { "name": "HTML5/CSS3", "level": "Advanced" }
+    ],
+    "Backend": [
+      { "name": ".NET Core", "level": "Advanced" },
+      { "name": "C#", "level": "Advanced" },
+      { "name": "Entity Framework", "level": "Advanced" },
+      { "name": "SQL Server", "level": "Advanced" }
+    ],
+    "Other": [
+      "Vue.js 3", "Azure", "Docker", "Git", "PostgreSQL", "Redis", "RabbitMQ", "Microservices", "Clean Architecture", "SOLID", "OIDC/OAuth2"
+    ]
+  },
+  "education": [
+    {
+      "degree": "Master of Business Administration (MBA) in IT Project Management",
+      "institution": "Universidade Federal de Juiz de Fora",
+      "period": "2013 - 2014"
+    },
+    {
+      "degree": "Bachelor's Degree in Computer Science",
+      "institution": "Universidade Presidente Antônio Carlos",
+      "period": "2004 - 2007"
+    }
+  ],
+  "certifications": [
+    "MS: Programming in C#",
+    "MCPS: Microsoft Certified Professional",
+    "Software Architecture Course (.NET)"
+  ],
+  "projects": [
+    {
+      "title": "Novo Mediador — MTE (Ministry of Labour, Brazil)",
+      "period": "April 2026 – Present",
+      "stack": "nm-frontend & nm-api · Vue.js 3 · TypeScript · OIDC/OAuth2 · GOV.BR",
+      "description": "Strategic government platform for digital mediation of labour conflicts, contracted by the Brazilian Ministry of Labour and Employment (MTE/Serpro). Responsible for fullstack development of the nm-frontend (Vue.js 3 + TypeScript SPA) and nm-api backend services, including OIDC/OAuth2 authentication integration with the GOV.BR identity provider for secure, federated access by citizens and employers.",
+      "tags": ["Vue.js 3", "TypeScript", "OIDC/OAuth2", "GOV.BR", "SERPRO", "REST API", "Scrum"],
+      "color": "purple",
+      "badge1": "Government",
+      "badge2": "Current"
+    },
+    {
+      "title": "Legacy System Modernization",
+      "period": "",
+      "stack": "",
+      "description": "Led the modernization of legacy systems transitioning to microservices architecture, improving performance, scalability and maintainability of enterprise applications.",
+      "tags": [],
+      "color": "blue",
+      "badge1": "",
+      "badge2": ""
+    },
+    {
+      "title": "SDK Development",
+      "period": "",
+      "stack": "",
+      "description": "Developed comprehensive SDKs for complex integrations, enabling seamless communication between different systems and platforms with focus on security and performance.",
+      "tags": [],
+      "color": "green",
+      "badge1": "",
+      "badge2": ""
+    }
+  ]
+}
