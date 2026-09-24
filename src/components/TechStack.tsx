@@ -1,25 +1,4 @@
-interface TechItem {
-  name: string
-  category: string
-  level: 'Advanced' | 'Intermediate' | 'Basic'
-}
-
-const techStack: TechItem[] = [
-  { name: 'Angular', category: 'Frontend', level: 'Advanced' },
-  { name: 'TypeScript', category: 'Frontend', level: 'Advanced' },  
-  { name: 'HTML5/CSS3', category: 'Frontend', level: 'Advanced' },
-  { name: 'AspNet Mvc', category: 'Frontend', level: 'Advanced' },
-  { name: '.NET Core', category: 'Backend', level: 'Advanced' },
-  { name: '.NET Framework', category: 'Backend', level: 'Advanced' },
-  { name: 'C#', category: 'Backend', level: 'Advanced' },
-  { name: 'Entity Framework', category: 'Backend', level: 'Advanced' },
-  { name: 'SQL Server', category: 'Database', level: 'Intermediate' },
-  { name: 'PostgreSQL', category: 'Database', level: 'Intermediate' },
-  { name: 'Azure', category: 'Cloud', level: 'Intermediate' },
-  { name: 'Docker', category: 'DevOps', level: 'Intermediate' },
-  { name: 'RabbitMq', category: 'DevOps', level: 'Intermediate' },
-  { name: 'Git', category: 'Tools', level: 'Advanced' },
-]
+import type { ResumeData } from '@/lib/resume'
 
 const getLevelColor = (level: string) => {
   switch (level) {
@@ -34,7 +13,12 @@ const getLevelColor = (level: string) => {
   }
 }
 
-export default function TechStack() {
+export default function TechStack({ skills }: { skills: ResumeData['skills'] }) {
+  const techStack = Object.entries(skills).flatMap(([category, items]) =>
+    (items ?? []).map(item => typeof item === 'string'
+      ? { name: item, category, level: '' }
+      : { ...item, category })
+  )
   const categories = Array.from(new Set(techStack.map(tech => tech.category)))
 
   return (

@@ -1,9 +1,12 @@
 import { Mail, Phone, MapPin, Github, Linkedin, ExternalLink } from 'lucide-react'
 import PrintButton from '@/components/PrintButton'
-import resumeData from '@/data/resume-en.json'
+import { getResume } from '@/lib/resume'
+import ResumeText from '@/components/ResumeText'
 
-export default function Resume() {
-  const { basics, experience, skills, education, certifications, projects } = resumeData;
+export const revalidate = 3600
+
+export default async function Resume() {
+  const { basics, experience, skills, education, certifications, projects } = await getResume();
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -70,7 +73,7 @@ export default function Resume() {
                     </div>
                     <ul className="text-gray-600 space-y-1 ml-4">
                       {role.responsibilities.map((resp, respIndex) => (
-                        <li key={respIndex} dangerouslySetInnerHTML={{ __html: `• ${resp}` }} />
+                        <li key={respIndex}>• <ResumeText>{resp}</ResumeText></li>
                       ))}
                     </ul>
                   </div>
@@ -89,10 +92,10 @@ export default function Resume() {
               <div key={category}>
                 <h3 className="text-lg font-semibold text-gray-800 mb-3">{category}</h3>
                 <div className="space-y-2">
-                  {(items as Array<{name: string, level: string}>).map((item, index) => (
+                  {(items ?? []).map((item, index) => (
                     <div key={index} className="flex justify-between items-center">
-                      <span className="text-gray-600">{item.name}</span>
-                      <span className="text-sm text-green-600 font-medium">{item.level}</span>
+                      <span className="text-gray-600">{typeof item === 'string' ? item : item.name}</span>
+                      <span className="text-sm text-green-600 font-medium">{typeof item === 'string' ? '' : item.level}</span>
                     </div>
                   ))}
                 </div>
@@ -169,7 +172,7 @@ export default function Resume() {
                           {[project.period, project.stack].filter(Boolean).join(' · ')}
                         </p>
                       )}
-                      <p className="text-gray-600 mt-1" dangerouslySetInnerHTML={{ __html: project.description }} />
+                      <p className="text-gray-600 mt-1"><ResumeText>{project.description}</ResumeText></p>
                       
                       {project.tags && project.tags.length > 0 && (
                         <div className="flex flex-wrap gap-2 mt-3">

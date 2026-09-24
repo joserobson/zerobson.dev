@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "export": "next build",
-    "export-pdf": "node scripts/export-pdf.js"
+    "export-pdf": "node scripts/export-pdf.js",
+    "test": "tsx --test tests/*.test.ts",
+    "test:integration": "node --test tests/*.integration.mjs"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",
@@ -32,10 +34,12 @@
     "react-dom": "^18.3.0",
     "react-syntax-highlighter": "^15.6.6",
     "tailwindcss": "^3.4.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "ejs": "^6.0.1",
-    "puppeteer": "^24.43.1"
+    "puppeteer": "^24.43.1",
+    "tsx": "^4.23.15"
   }
 }
